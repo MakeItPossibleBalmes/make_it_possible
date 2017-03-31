@@ -37,12 +37,7 @@ public class DAOCategoria {
             stmt.close();
         } catch (SQLException e) {
             recordOk = false;
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ignore) {
-                }
-            }
+            throw e;
         }
         return recordOk;
     }
@@ -52,9 +47,9 @@ public class DAOCategoria {
      *
      * @return devuelve una lista de Categoria
      */
-    public ArrayList<Categoria> getAllCategorias() {
+    public ArrayList<Categoria> getAllCategorias() throws SQLException {
         ArrayList<Categoria> resultat = new ArrayList();
-        PreparedStatement stmt=null;
+        PreparedStatement stmt = null;
         try {
             String sql = "SELECT * FROM categoria";
             stmt = conexio().prepareStatement(sql);
@@ -67,12 +62,7 @@ public class DAOCategoria {
             }
         } catch (SQLException e) {
             resultat = null;
-             if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ignore) {
-                }
-            }
+            throw e;
         }
         return resultat;
     }
