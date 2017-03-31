@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class BD {
 
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/javaweb";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/make_it_possible";
     private static final String ID_DB = "root";
     private static final String PW_DB = "";
     private static Connection CONNECTION = null;
