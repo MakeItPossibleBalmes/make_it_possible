@@ -19,14 +19,16 @@ public class BD {
     private static final String ID_DB = "root";
     private static final String PW_DB = "";
     private static Connection CONNECTION = null;
-
+    
     public static Connection getConnexio() throws SQLException {
         if (CONNECTION == null) {
             new BD(DATABASE_URL, ID_DB, PW_DB);
         }
         return CONNECTION;
     }
-
+    public BD(){
+        
+    }
     private BD(String url, String id, String pw) throws SQLException {
         connectarBBDD(url, id, pw);
     }
