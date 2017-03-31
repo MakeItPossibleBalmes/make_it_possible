@@ -60,6 +60,7 @@ public class DAOCategoria {
                         rs.getString("nombre")
                 ));
             }
+            stmt.close();
         } catch (SQLException e) {
             resultat = null;
             throw e;
