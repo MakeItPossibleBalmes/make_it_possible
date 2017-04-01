@@ -59,7 +59,7 @@ public class DAOTema {
             stmt = conexio().prepareStatement(sql);
             stmt.setString(1, tema.getTitulo());
             stmt.setString(2, tema.getCuerpo());
-            stmt.setInt(3, tema.getId_usuario());
+            stmt.setInt(3, tema.getId());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
