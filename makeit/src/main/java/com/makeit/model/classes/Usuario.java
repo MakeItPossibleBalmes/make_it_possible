@@ -13,6 +13,7 @@ public class Usuario {
     
     private int id;
     private String dni;
+    private String password;
     private String nombre;
     private String primer_apellido;
     private String segundo_apellido;
@@ -25,9 +26,10 @@ public class Usuario {
         
     }
 
-    public Usuario(int id, String dni, String nombre, String primer_apellido, String segundo_apellido, int codigo_postal, String ciudad, String pais, boolean is_admin) {
+    public Usuario(int id, String dni,String password, String nombre, String primer_apellido, String segundo_apellido, int codigo_postal, String ciudad, String pais, boolean is_admin) {
         this.id = id;
         this.dni = dni;
+        this.password=password;
         this.nombre = nombre;
         this.primer_apellido = primer_apellido;
         this.segundo_apellido = segundo_apellido;
@@ -51,6 +53,14 @@ public class Usuario {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {
