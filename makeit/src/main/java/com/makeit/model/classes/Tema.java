@@ -5,13 +5,14 @@
  */
 package com.makeit.model.classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author razomiah
  */
-public class Tema {
+public class Tema implements Serializable{
     
     private int id;
     private String titulo;

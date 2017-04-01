@@ -5,11 +5,13 @@
  */
 package com.makeit.model.classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author razomiah
  */
-public class Categoria {
+public class Categoria implements Serializable{
     
     private int id;
     private String nombre;

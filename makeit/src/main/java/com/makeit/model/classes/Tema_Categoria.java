@@ -5,11 +5,13 @@
  */
 package com.makeit.model.classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author razomiah
  */
-public class Tema_Categoria {
+public class Tema_Categoria implements Serializable{
     
     private int id;
     private int id_tema;

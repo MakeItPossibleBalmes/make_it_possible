@@ -5,11 +5,13 @@
  */
 package com.makeit.model.classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author razomiah
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
     private int id;
     private String dni;
@@ -111,7 +113,7 @@ public class Usuario {
         this.pais = pais;
     }
 
-    public boolean isIs_admin() {
+    public boolean is_admin() {
         return is_admin;
     }
 
