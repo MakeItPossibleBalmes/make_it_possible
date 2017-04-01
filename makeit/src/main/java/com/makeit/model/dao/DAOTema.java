@@ -79,7 +79,7 @@ public class DAOTema {
         ArrayList<Tema> resultat = new ArrayList();
         PreparedStatement stmt = null;
         try {
-            String sql = "SELECT * FROM tema";
+            String sql = "SELECT * FROM tema ORDER BY fecha_creacion LIMIT 25";
             stmt = conexio().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
