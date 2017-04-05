@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.4.1deb2ubuntu2
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 04-04-2017 a las 19:16:54
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.6.28
+-- Host: localhost
+-- Generation Time: Apr 05, 2017 at 05:49 PM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.17-2+deb.sury.org~xenial+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,36 +17,38 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `make_it_possible`
+-- Database: `make_it_possible`
 --
+CREATE DATABASE IF NOT EXISTS `make_it_possible` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `make_it_possible`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Table structure for table `categorias`
+--
+-- Creation: Apr 05, 2017 at 03:46 PM
+-- Last update: Apr 05, 2017 at 03:46 PM
 --
 
-CREATE TABLE `categoria` (
+CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `categoria`
+-- RELATIONS FOR TABLE `categorias`:
 --
-
-INSERT INTO `categoria` (`id`, `nombre`) VALUES
-(1, 'Politica'),
-(2, 'Vida'),
-(3, 'Vida');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tema`
+-- Table structure for table `temas`
+--
+-- Creation: Apr 05, 2017 at 03:44 PM
 --
 
-CREATE TABLE `tema` (
+CREATE TABLE `temas` (
   `id` int(11) NOT NULL,
   `titulo` varchar(255) NOT NULL,
   `cuerpo` text NOT NULL,
@@ -54,28 +56,46 @@ CREATE TABLE `tema` (
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONS FOR TABLE `temas`:
+--   `id_usuario`
+--       `usuarios` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tema_categoria`
+-- Table structure for table `temas_categorias`
+--
+-- Creation: Apr 05, 2017 at 03:44 PM
 --
 
-CREATE TABLE `tema_categoria` (
+CREATE TABLE `temas_categorias` (
   `id` int(11) NOT NULL,
   `id_tema` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONS FOR TABLE `temas_categorias`:
+--   `id_categoria`
+--       `categorias` -> `id`
+--   `id_tema`
+--       `temas` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuarios`
+--
+-- Creation: Apr 05, 2017 at 03:48 PM
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `dni` varchar(9) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `nombre` varchar(75) NOT NULL,
   `primer_apellido` varchar(75) NOT NULL,
   `segundo_apellido` varchar(75) DEFAULT NULL,
@@ -86,77 +106,82 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Índices para tablas volcadas
+-- RELATIONS FOR TABLE `usuarios`:
 --
 
 --
--- Indices de la tabla `categoria`
+-- Indexes for dumped tables
 --
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `tema`
+-- Indexes for table `categorias`
 --
-ALTER TABLE `tema`
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indexes for table `temas`
+--
+ALTER TABLE `temas`
   ADD PRIMARY KEY (`id`,`id_usuario`),
   ADD KEY `fk_tema_usuario1_idx` (`id_usuario`);
 
 --
--- Indices de la tabla `tema_categoria`
+-- Indexes for table `temas_categorias`
 --
-ALTER TABLE `tema_categoria`
+ALTER TABLE `temas_categorias`
   ADD PRIMARY KEY (`id`,`id_tema`,`id_categoria`),
   ADD KEY `fk_tema_has_categoria_categoria1_idx` (`id_categoria`),
   ADD KEY `fk_tema_has_categoria_tema_idx` (`id_tema`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dni_UNIQUE` (`dni`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `categoria`
+-- AUTO_INCREMENT for table `categorias`
 --
-ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `tema`
---
-ALTER TABLE `tema`
+ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `tema_categoria`
+-- AUTO_INCREMENT for table `temas`
 --
-ALTER TABLE `tema_categoria`
+ALTER TABLE `temas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `temas_categorias`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `temas_categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `tema`
+-- Constraints for table `temas`
 --
-ALTER TABLE `tema`
-  ADD CONSTRAINT `fk_tema_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `temas`
+  ADD CONSTRAINT `fk_tema_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `tema_categoria`
+-- Constraints for table `temas_categorias`
 --
-ALTER TABLE `tema_categoria`
-  ADD CONSTRAINT `fk_tema_has_categoria_categoria1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tema_has_categoria_tema` FOREIGN KEY (`id_tema`) REFERENCES `tema` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `temas_categorias`
+  ADD CONSTRAINT `fk_tema_has_categoria_categoria1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tema_has_categoria_tema` FOREIGN KEY (`id_tema`) REFERENCES `temas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
