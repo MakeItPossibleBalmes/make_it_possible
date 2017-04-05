@@ -95,7 +95,7 @@ CREATE TABLE `temas_categorias` (
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `dni` varchar(9) NOT NULL,
-  `password` varchar(250) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `nombre` varchar(75) NOT NULL,
   `primer_apellido` varchar(75) NOT NULL,
   `segundo_apellido` varchar(75) DEFAULT NULL,
