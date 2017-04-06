@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Make it Happen</title>
-        <jsp:include page="./include/styles.jsp"></jsp:include>
+        <jsp:include page="WEB-INF/views/include/styles.jsp"></jsp:include>
     </head>
     <body>
         <h1>Hola mundo!</h1>
