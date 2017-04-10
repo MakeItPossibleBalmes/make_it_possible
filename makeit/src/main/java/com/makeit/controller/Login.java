@@ -7,7 +7,6 @@ package com.makeit.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hartbold <ardevolp at gmail dot com>
  */
-public class Home extends HttpServlet {
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,8 +30,28 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
+        String usuario = request.getParameter("usuario");
+        String contraseña = request.getParameter("password");
+        String recordar = request.getParameter("recordarme");
+        
+        boolean error = false;
+        
+        /*TODO:   
+            Las conexiones al final las establecemos con hibernate? 
+            Función de encriptación.
+            Función para comprobar si el formato de dni que llega es correcto - aún que ya se valide en el form.
+            Añadir un e-mail al usuario estaría guai.
+        */
+        
+        
+        //-------------------------------
+        //GET USUARIO CON EL MISMO NOMBRE
+        
+        //RECOGER SU CONTRASEÑA Y COMPRARARLA A LA QUE NOS LLEGA (comprar encriptada)
+        
+        //SI EXISTE --> CREAR COOKIE DE SESION
+        //SI NO --> REDIRIGIR A LA PÁGINA DE INICIO CON EL MENSAJE DE ERROR.
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
