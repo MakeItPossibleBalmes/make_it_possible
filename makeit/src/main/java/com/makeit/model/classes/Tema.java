@@ -18,18 +18,18 @@ public class Tema implements Serializable{
     private String titulo;
     private String cuerpo;
     private Date fecha_creacion;
-    private int id_usuario;
+    private int autor_id;
     
     public Tema(){
         
     }
 
-    public Tema(int id, String titulo, String cuerpo, Date fecha_creacion, int id_usuario) {
+    public Tema(int id, String titulo, String cuerpo, Date fecha_creacion, int autor_id) {
         this.id = id;
         this.titulo = titulo;
         this.cuerpo = cuerpo;
         this.fecha_creacion = fecha_creacion;
-        this.id_usuario = id_usuario;
+        this.autor_id = autor_id;
     }
 
     public int getId() {
@@ -64,12 +64,12 @@ public class Tema implements Serializable{
         this.fecha_creacion = fecha_creacion;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getAutor_id() {
+        return autor_id;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setAutor_id(int id_usuario) {
+        this.autor_id = id_usuario;
     }
     
     

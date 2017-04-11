@@ -23,14 +23,16 @@ public class Usuario implements Serializable{
     private String ciudad;
     private String pais;
     private boolean is_admin;
+    private String email;
     
     public Usuario(){
         
     }
 
-    public Usuario(int id, String dni,String password, String nombre, String primer_apellido, String segundo_apellido, int codigo_postal, String ciudad, String pais, boolean is_admin) {
+    public Usuario(int id, String dni,String email, String password, String nombre, String primer_apellido, String segundo_apellido, int codigo_postal, String ciudad, String pais, boolean is_admin) {
         this.id = id;
         this.dni = dni;
+        this.email = email;
         this.password=password;
         this.nombre = nombre;
         this.primer_apellido = primer_apellido;
@@ -49,6 +51,14 @@ public class Usuario implements Serializable{
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getDni() {
         return dni;
     }

@@ -30,8 +30,8 @@ public class DAOUsuario {
         PreparedStatement stmt = null;
         try {
             String sql = "INSERT INTO usuario(dni,password,nombre,primer_apellido,"
-                    + "segundo_apellido,codigo_postal,ciudad,pais,is_admin)"
-                    + " VALUES(?,?,?,?,?,?,?,?,?)";
+                    + "segundo_apellido,codigo_postal,ciudad,pais,is_admin,email)"
+                    + " VALUES(?,?,?,?,?,?,?,?,?,?)";
             stmt = conexio().prepareStatement(sql);
             stmt.setString(1, usuario.getDni());
             stmt.setString(2, usuario.getPassword());
@@ -42,6 +42,7 @@ public class DAOUsuario {
             stmt.setString(7, usuario.getCiudad());
             stmt.setString(8, usuario.getPais());
             stmt.setBoolean(9, usuario.is_admin());
+            stmt.setString(10, usuario.getEmail());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class DAOUsuario {
         PreparedStatement stmt = null;
         try {
             String sql = "UPDATE usuario SET password=?,nombre=?,primer_apellido=?,"
-                    + "segundo_apellido=?,codigo_postal=?,ciudad=?,pais=?"
+                    + "segundo_apellido=?,codigo_postal=?,ciudad=?,pais=?,email=?"
                     + "WHERE id=?";
             stmt = conexio().prepareStatement(sql);
             stmt.setString(1, usuario.getPassword());
@@ -74,6 +75,7 @@ public class DAOUsuario {
             stmt.setString(6, usuario.getCiudad());
             stmt.setString(7, usuario.getPais());
             stmt.setInt(8, usuario.getId());
+            stmt.setString(9, usuario.getEmail());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -98,7 +100,7 @@ public class DAOUsuario {
             stmt.setString(1, dni);
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            usuario = new Usuario(rs.getInt("id"), rs.getString("dni"), rs.getString("password"),
+            usuario = new Usuario(rs.getInt("id"), rs.getString("dni"), rs.getString("email"), rs.getString("password"),
                     rs.getString("nombre"), rs.getString("primer_apellido"), rs.getString("segundo_apellido"),
                     rs.getInt("codigo_postal"), rs.getString("ciudad"), rs.getString("pais"), rs.getBoolean("is_admin"));
             stmt.close();

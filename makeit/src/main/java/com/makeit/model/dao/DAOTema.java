@@ -31,11 +31,11 @@ public class DAOTema {
         boolean recordOk = true;
         PreparedStatement stmt = null;
         try {
-            String sql = "INSERT INTO tema(titulo,cuerpo,id_usuario) VALUES(?,?,?)";
+            String sql = "INSERT INTO tema(titulo,cuerpo,autor_id) VALUES(?,?,?)";
             stmt = conexio().prepareStatement(sql);
             stmt.setString(1, tema.getTitulo());
             stmt.setString(2, tema.getCuerpo());
-            stmt.setInt(3, tema.getId_usuario());
+            stmt.setInt(3, tema.getAutor_id());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class DAOTema {
                         rs.getString("titulo"),
                         rs.getString("cuerpo"),
                         new Date(rs.getTimestamp("fecha_creacion").getTime()),
-                        rs.getInt("id_usuario")
+                        rs.getInt("autor_id")
                 ));
             }
             stmt.close();
@@ -104,13 +104,13 @@ public class DAOTema {
      *
      * @return devuelve una lista de Tema
      */
-    public ArrayList<Tema> getAllTemas(int id_usuario) throws SQLException {
+    public ArrayList<Tema> getAllTemas(int autor_id) throws SQLException {
         ArrayList<Tema> resultat = new ArrayList();
         PreparedStatement stmt = null;
         try {
-            String sql = "SELECT * FROM tema WHERE id_usuario=?";
+            String sql = "SELECT * FROM tema WHERE autor_id=?";
             stmt = conexio().prepareStatement(sql);
-            stmt.setInt(1, id_usuario);
+            stmt.setInt(1, autor_id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 resultat.add(new Tema(
@@ -118,7 +118,7 @@ public class DAOTema {
                         rs.getString("titulo"),
                         rs.getString("cuerpo"),
                         new Date(rs.getTimestamp("fecha_creacion").getTime()),
-                        rs.getInt("id_usuario")
+                        rs.getInt("autor_id")
                 ));
             }
             stmt.close();
