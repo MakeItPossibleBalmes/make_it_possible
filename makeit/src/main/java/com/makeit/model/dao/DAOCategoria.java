@@ -6,7 +6,7 @@
 package com.makeit.model.dao;
 
 import com.makeit.model.bd.BD;
-import com.makeit.model.classes.Categoria;
+import com.makeit.model.POJO.Categoria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

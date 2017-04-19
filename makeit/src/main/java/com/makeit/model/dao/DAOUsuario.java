@@ -6,118 +6,39 @@
 package com.makeit.model.dao;
 
 import com.makeit.model.bd.BD;
-import com.makeit.model.classes.Usuario;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.makeit.model.POJO.Tema;
+import com.makeit.model.POJO.Usuario;
+
+import java.util.Date;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author razomiah
  */
 public class DAOUsuario {
+//	@PersistenceContext
+	private static EntityManager manager;
+	private static EntityManagerFactory  mg = Persistence.createEntityManagerFactory("makeit");
 
-    /**
-     * Funcio per inserir Usuaris a la base de dades.
-     *
-     * @param usuario Parametro de tipo Usuario
-     * @return devuelve un true si se ha introducido correctamente, false en el
-     * caso contrario
-     */
-    public boolean insertUsuario(Usuario usuario) throws SQLException {
-        boolean recordOk = true;
-        PreparedStatement stmt = null;
-        try {
-            String sql = "INSERT INTO usuario(dni,password,nombre,primer_apellido,"
-                    + "segundo_apellido,codigo_postal,ciudad,pais,is_admin,email)"
-                    + " VALUES(?,?,?,?,?,?,?,?,?,?)";
-            stmt = conexio().prepareStatement(sql);
-            stmt.setString(1, usuario.getDni());
-            stmt.setString(2, usuario.getPassword());
-            stmt.setString(3, usuario.getNombre());
-            stmt.setString(4, usuario.getPrimer_apellido());
-            stmt.setString(5, usuario.getSegundo_apellido());
-            stmt.setInt(6, usuario.getCodigo_postal());
-            stmt.setString(7, usuario.getCiudad());
-            stmt.setString(8, usuario.getPais());
-            stmt.setBoolean(9, usuario.is_admin());
-            stmt.setString(10, usuario.getEmail());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            recordOk = false;
-            throw e;
-        }
-        return recordOk;
-    }
-
-    /**
-     * Funcio per fer update d'Usuaris a la base de dades.
-     *
-     * @param usuario Parametro de tipo Usuario
-     * @return devuelve un true si se ha introducido correctamente, false en el
-     * caso contrario
-     */
-    public boolean updateUsuario(Usuario usuario) throws SQLException {
-        boolean recordOk = true;
-        PreparedStatement stmt = null;
-        try {
-            String sql = "UPDATE usuario SET password=?,nombre=?,primer_apellido=?,"
-                    + "segundo_apellido=?,codigo_postal=?,ciudad=?,pais=?,email=?"
-                    + "WHERE id=?";
-            stmt = conexio().prepareStatement(sql);
-            stmt.setString(1, usuario.getPassword());
-            stmt.setString(2, usuario.getNombre());
-            stmt.setString(3, usuario.getPrimer_apellido());
-            stmt.setString(4, usuario.getSegundo_apellido());
-            stmt.setInt(5, usuario.getCodigo_postal());
-            stmt.setString(6, usuario.getCiudad());
-            stmt.setString(7, usuario.getPais());
-            stmt.setInt(8, usuario.getId());
-            stmt.setString(9, usuario.getEmail());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
-            recordOk = false;
-            throw e;
-        }
-        return recordOk;
-    }
-
-    /**
-     * Funcion para obtener un usuario registrado en la bd
-     *
-     * @param String dni
-     * @return devuelve un Usuario
-     */
-    public Usuario getUsuario(String dni) throws SQLException {
-        Usuario usuario;
-        PreparedStatement stmt = null;
-        try {
-            String sql = "SELECT * FROM usuario WHERE dni=?";
-            stmt = conexio().prepareStatement(sql);
-            stmt.setString(1, dni);
-            ResultSet rs = stmt.executeQuery();
-            rs.next();
-            usuario = new Usuario(rs.getInt("id"), rs.getString("dni"), rs.getString("email"), rs.getString("password"),
-                    rs.getString("nombre"), rs.getString("primer_apellido"), rs.getString("segundo_apellido"),
-                    rs.getInt("codigo_postal"), rs.getString("ciudad"), rs.getString("pais"), rs.getBoolean("is_admin"));
-            stmt.close();
-        } catch (SQLException e) {
-            usuario = null;
-            throw e;
-        }
-        return usuario;
-    }
-
-    /**
-     * Funcion para obtener la conexion a la bd
-     *
-     * @return
-     * @throws SQLException
-     */
-    private Connection conexio() throws SQLException {
-        return BD.getConnexio();
-    }
+	public static void main(String[] args) {
+		
+		manager = mg.createEntityManager();
+		Usuario usu=manager.find(Usuario.class, 2);
+		Tema tema=new Tema("Rajoy","PP corrupcion",new Date(),usu);
+		manager.getTransaction().begin();
+		//manager.persist(tema);
+		manager.getTransaction().commit();
+		List<Usuario> u = (List<Usuario>) manager.createQuery("FROM Usuario").getResultList();
+		for(Usuario use: u){
+			System.out.println(use.getTemas());
+			System.out.println(use);
+		}
+		System.out.println("hay " + u.size() + " Usuario");
+		manager.close();
+	}
 }
