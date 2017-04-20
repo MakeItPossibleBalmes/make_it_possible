@@ -4,6 +4,6 @@
     Author     : hartbold <ardevolp at gmail dot com>
 --%>
 
-<footer>
-    
+<footer class="text-center">
+    <p><i class="glyphicon glyphicon-copyright-mark"></i> <a href='https://github.com/MakeItPossibleBalmes/' target='_blank'>Make it Possible Team</a> - 2017</p>
 </footer>
