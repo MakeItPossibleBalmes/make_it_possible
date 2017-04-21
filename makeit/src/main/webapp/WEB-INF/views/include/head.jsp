@@ -25,6 +25,7 @@
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
 				<!-- Right Side Of Navbar -->
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${pageContext.request.contextPath}/ultimos">Más Recientes</a></li>
 					<li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
 					<li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>
 				</ul>

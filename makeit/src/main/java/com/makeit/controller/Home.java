@@ -7,11 +7,18 @@ package com.makeit.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.makeit.model.POJO.Categoria;
+import com.makeit.model.POJO.Tema;
+import com.makeit.model.dao.DAOTema;
+import com.makeit.model.dao.DAOCategoria;
 
 /**
  *
@@ -30,6 +37,16 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	
+    	List<Tema> destacados = DAOTema.getDestacados(5);
+    	request.setAttribute("destacados", destacados);
+    	
+    	List<Categoria> categorias = DAOCategoria.getAllCategorias();
+    	request.setAttribute("categorias", categorias);
+    	
+    	List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
+    	request.setAttribute("mejorValorados", mejorValorados);
         
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);

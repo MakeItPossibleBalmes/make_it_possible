@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -15,7 +16,9 @@
     <body>
     <jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
         <div class="container" id="home-page">
-        	<h1>Make it Happen</h1>
+			<c:forEach var=destacado items="${destacados}">		
+				{destacado.titulo}	
+			</c:forEach>
         </div>
 
         <jsp:include page="WEB-INF/views/include/scripts.jsp"></jsp:include>

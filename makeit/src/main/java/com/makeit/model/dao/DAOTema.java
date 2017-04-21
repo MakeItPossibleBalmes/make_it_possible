@@ -92,7 +92,9 @@ public class DAOTema {
 	 * @return
 	 */
 	public static List<Tema> getMejorValorados(int total){
-		List<Tema> temas = getAllTemas();
+		List<Tema> temas = null;//getAllTemas();
+		
+		//TODO:Recoger el número de votos por cada tema. Ordenarlos de mayor a menor y devolver los temas. (Buscando por la key)
 		
 		//Set<Tema> mejorValorados = new D<Tema>();
 		Map<Integer, Integer> datos = new HashMap<Integer, Integer>();
@@ -101,7 +103,7 @@ public class DAOTema {
 			datos.put(t.getId(), t.getVotos().size());
 		}
 		
-		return mejorValorados;
+		return temas;
 		
 	}
 }
