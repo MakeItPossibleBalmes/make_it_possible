@@ -9,41 +9,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author razomiah
  */
 public class BD {
 
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/make_it_possible";
-    private static final String ID_DB = "root";
-    private static final String PW_DB = "";
-    private static Connection CONNECTION = null;
-    
-    public static Connection getConnexio() throws SQLException {
-        if (CONNECTION == null) {
-            new BD(DATABASE_URL, ID_DB, PW_DB);
-        }
-        return CONNECTION;
-    }
-    public BD(){
-        
-    }
-    private BD(String url, String id, String pw) throws SQLException {
-        connectarBBDD(url, id, pw);
-    }
+	private static EntityManager manager;
+	private static EntityManagerFactory  mg = Persistence.createEntityManagerFactory("makeit");
 
-    private void connectarBBDD(String url, String id, String pw) throws SQLException {
-        CONNECTION = DriverManager.getConnection(url, id, pw);
+    
+    public static EntityManager getConnexio(){
+        if (manager == null) {
+        	manager = mg.createEntityManager();
+        }
+        return manager;
     }
 
     public static void tancarConnexio() {
-        if (CONNECTION != null) {
-            try {
-                CONNECTION.close();
-            } catch (Exception ignore) {
-            }
-        }
+    	if(manager!=null){
+    		manager.close();
+    	}
     }
 
 }
