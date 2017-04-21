@@ -5,8 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
-* @author hartbold <ardevolp at gmail dot com>
-*/
+ * 
+ * @author hartbold <ardevolp at gmail dot com>
+ */
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
 	
@@ -18,4 +19,8 @@ public class HibernateUtil {
 			throw new ExceptionInInitializerError(he);
 		}
 	}
+	
+	public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 }

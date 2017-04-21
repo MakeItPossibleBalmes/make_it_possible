@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- parametros para la conexion a la base de datos -->
+        
+        <!-- org.postgresql.Driver -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- jdbc:postgresql://localhost:5432/BBDD -->
+        <property name="connection.url">jdbc:mysql://localhost:3306/make_it_possible</property>
+        
+        <property name="connection.username">makeitadmin</property>
+        <property name="connection.password"></property>
+        
+        <!-- Configuracion del pool interno -->
+        <property name="connection.pool_size">1</property>
+        <!-- Dialecto de la base de datos -->
+        <!-- org.hibernate.dialect.PostgreSQLDialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Otras propiedades importantes -->
+        <property name="show_sql">true</property>
+        <!-- COMENTAR PER RECUPERAR OBJECTES -->
+        <!--<property name="hbm2ddl.auto">create</property>-->
+        
+        <!-- Archivos de mapeo - Arxiu des d'on es realitza el mapeig - CAL QUE SIGUI CLASS  -->
+        <mapping class="com.makeit.model.POJO.Categoria"/>
+        
+    </session-factory>
+</hibernate-configuration>
+
