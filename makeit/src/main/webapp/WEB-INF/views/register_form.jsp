@@ -41,13 +41,10 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="primer_apellido" class="control-label">Apellidos</label>
+			<label for="primer_apellido" class="control-label">Apellido</label>
 			<div class="form-group">
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="primer_apellido" id="primer_apellido" required placeholder="Primer Apellido*"/>
-				</div>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido" placeholder="Segundo Apellido"/>
 				</div>
 			</div>			
 		</div>
@@ -55,11 +52,6 @@
 	
 	<hr/>
 	<fieldset>
-		
-		<div class="form-group">
-			<label for="cp" class="control-label">Código Postal*</label>
-			<input type="text" class="form-control" name="cp" id="cp" required />
-		</div>
 		<div class="form-group">
 			<label for="ciudad" class="control-label">Ciudad*</label>
 			<input type="text" class="form-control" name="ciudad" id="ciudad" required />
