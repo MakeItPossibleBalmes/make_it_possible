@@ -8,6 +8,7 @@
 		<class>com.makeit.model.POJO.Usuario</class>
 		<class>com.makeit.model.POJO.Tema</class>
 		<class>com.makeit.model.POJO.Categoria</class>
+		<class>com.makeit.model.POJO.VotoTemaUsuario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
