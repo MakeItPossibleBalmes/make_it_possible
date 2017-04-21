@@ -23,7 +23,7 @@ public class DAOCategoria {
 	 * @param categoria
 	 * @throws Exception
 	 */
-	public void insertCategoria(Categoria categoria) throws Exception {
+	public static void insertCategoria(Categoria categoria) throws Exception {
 		EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(categoria);
@@ -38,7 +38,7 @@ public class DAOCategoria {
 	 * @return
 	 * @throws Exception
 	 */
-	public Categoria getCategoria(int id) throws Exception {
+	public static Categoria getCategoria(int id) throws Exception {
 		Categoria categoria = null;
 		EntityManager manager = BD.getConnexio();
 		categoria = manager.find(Categoria.class, id);
@@ -50,7 +50,7 @@ public class DAOCategoria {
 	 * Funcion para recibir todas las categoria registrados
 	 * @return devuelve una lista de categoria
 	 */
-	public List<Categoria>getAllUsuario(){
+	public static List<Categoria>getAllCategorias(){
 		EntityManager manager = BD.getConnexio();
 		List<Categoria> categorias = (List<Categoria>) manager.createQuery("FROM Categoria").getResultList();
 		BD.tancarConnexio();
