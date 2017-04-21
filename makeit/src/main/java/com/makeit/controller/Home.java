@@ -38,16 +38,21 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
+    	DAOCategoria daoc = new DAOCategoria();    	
     	
-    	List<Tema> destacados = DAOTema.getDestacados(5);
+    	/*List<Tema> destacados = DAOTema.getDestacados(5);
     	request.setAttribute("destacados", destacados);
+    	*/
+    	//List<Categoria> categorias = daoc.getAllCategorias();
     	
-    	List<Categoria> categorias = DAOCategoria.getAllCategorias();
+    	//TODO:Que las categorias se envien bien y tal como mínimo.
+    	List<Categoria> categorias= daoc.getAllCategorias();
+    	
     	request.setAttribute("categorias", categorias);
-    	
+    	/*
     	List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
     	request.setAttribute("mejorValorados", mejorValorados);
-        
+        */
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
     }

@@ -6,54 +6,76 @@
 package com.makeit.model.dao;
 
 import com.makeit.model.bd.BD;
+import com.makeit.model.bd.DataAccess;
 import com.makeit.model.POJO.Categoria;
 import com.makeit.model.POJO.Usuario;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import org.hibernate.HibernateException;
 
 /**
  *
  * @author razomiah
  */
-public class DAOCategoria {
+public class DAOCategoria extends DataAccess<Categoria> {
+
 	/**
-	 * Inserta una categoria
 	 * 
 	 * @param categoria
-	 * @throws Exception
+	 * @return Id de la categoría insertada
+	 * @throws HibernateException
 	 */
-	public static void insertCategoria(Categoria categoria) throws Exception {
-		EntityManager manager = BD.getConnexio();
-		manager.getTransaction().begin();
-		manager.persist(categoria);
-		manager.getTransaction().commit();
-		BD.tancarConnexio();
+	public long insertCategoria(Categoria categoria) throws HibernateException {
+		/*
+		 * EntityManager manager = BD.getConnexio();
+		 * manager.getTransaction().begin(); manager.persist(categoria);
+		 * manager.getTransaction().commit(); BD.tancarConnexio();
+		 */
+
+		return insert(categoria);
 	}
 
 	/**
-	 * Busca una categoria con id
 	 * 
 	 * @param id
-	 * @return
-	 * @throws Exception
+	 *            Categoría a buscar
+	 * @return Categoría encontrada por esa id
+	 * @throws HibernateException
 	 */
-	public static Categoria getCategoria(int id) throws Exception {
-		Categoria categoria = null;
-		EntityManager manager = BD.getConnexio();
-		categoria = manager.find(Categoria.class, id);
-		BD.tancarConnexio();
-		return categoria;
+	public Categoria getCategoria(long id) throws HibernateException {
+		/*
+		 * EntityManager manager = BD.getConnexio(); categoria =
+		 * manager.find(Categoria.class, id); BD.tancarConnexio();
+		 */
+
+		return get(Categoria.class, id);
 	}
-	
+
 	/**
-	 * Funcion para recibir todas las categoria registrados
-	 * @return devuelve una lista de categoria
+	 * 
+	 * @return Lista de todas las categorías
+	 * @throws HibernateException
 	 */
-	public static List<Categoria>getAllCategorias(){
-		EntityManager manager = BD.getConnexio();
-		List<Categoria> categorias = (List<Categoria>) manager.createQuery("FROM Categoria").getResultList();
-		BD.tancarConnexio();
+	public List<Categoria> getAllCategorias() throws HibernateException {
+		/*
+		 * EntityManager manager = BD.getConnexio(); List<Categoria> categorias
+		 * = (List<Categoria>)
+		 * manager.createQuery("FROM Categoria").getResultList();
+		 * BD.tancarConnexio();
+		 */
+
+		List<Categoria> categorias = null;
+		try {
+			startTransaction();
+			categorias = getSesion().createQuery("FROM Categoria").list();
+			finishTransaction();
+		} catch (HibernateException he) {
+			manageException(he);
+			throw he;
+		} finally {
+			getSesion().close();
+		}
+
 		return categorias;
 	}
 }

@@ -4,6 +4,8 @@
     Author     : hartbold <ardevolp at gmail dot com>
 --%>
 
+<%@page import="com.makeit.model.POJO.Categoria"%>
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -15,10 +17,12 @@
     </head>
     <body>
     <jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
+        
         <div class="container" id="home-page">
-			<c:forEach var=destacado items="${destacados}">		
-				{destacado.titulo}	
+			<c:forEach var="categoria" items="${categorias}">		
+				<tr>${categoria.nombre}<tr/>	
 			</c:forEach>
+			
         </div>
 
         <jsp:include page="WEB-INF/views/include/scripts.jsp"></jsp:include>
