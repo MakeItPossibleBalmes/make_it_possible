@@ -7,14 +7,21 @@ package com.makeit.model.POJO;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +52,14 @@ public class Tema implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "tema")
+	private Set<VotoTemaUsuario> votos=new HashSet<VotoTemaUsuario>();
+	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "tema_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
+	private Set<Categoria> categoria=new HashSet<Categoria>();
 	
     
     public Tema(){
@@ -116,6 +131,34 @@ public class Tema implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+
+	public Set<VotoTemaUsuario> getVotos() {
+		return votos;
+	}
+
+
+	public void setVotos(Set<VotoTemaUsuario> votos) {
+		this.votos = votos;
+	}
+
+
+	public Set<Categoria> getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(Set<Categoria> categoria) {
+		this.categoria = categoria;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Tema [id=" + id + ", titulo=" + titulo + ", cuerpo=" + cuerpo + ", fecha_creacion=" + fecha_creacion
+				+ ", ]";
+	}
+	
     
     
 }

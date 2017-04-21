@@ -7,12 +7,15 @@ package com.makeit.model.POJO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -65,6 +68,10 @@ public class Usuario implements Serializable {
     
     @OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
     private List<Tema> temas= new ArrayList<Tema>();
+    
+    
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<VotoTemaUsuario> votos=new HashSet<VotoTemaUsuario>();
     
     
 
@@ -177,6 +184,15 @@ public class Usuario implements Serializable {
 
 	public void setTemas(List<Tema> temas) {
 		this.temas = temas;
+	}
+	
+
+	public Set<VotoTemaUsuario> getVotos() {
+		return votos;
+	}
+
+	public void setVotos(Set<VotoTemaUsuario> votos) {
+		this.votos = votos;
 	}
 
 	@Override
