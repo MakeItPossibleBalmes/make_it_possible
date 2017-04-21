@@ -30,7 +30,7 @@ public class DAOUsuario {
 	 * @param usuario
 	 * @throws Exception
 	 */
-	public void insertUsuario(Usuario usuario) throws Exception {
+	public static void insertUsuario(Usuario usuario) throws Exception {
 		EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(usuario);
@@ -45,7 +45,7 @@ public class DAOUsuario {
 	 * @return
 	 * @throws Exception
 	 */
-	public Usuario getUsuario(int id) throws Exception {
+	public static Usuario getUsuario(int id) throws Exception {
 		Usuario usuario = null;
 		EntityManager manager = BD.getConnexio();
 		usuario = manager.find(Usuario.class, id);
@@ -60,7 +60,7 @@ public class DAOUsuario {
 	 * @return
 	 * @throws Exception
 	 */
-	public Usuario getUsuario(String email) throws Exception {
+	public static Usuario getUsuario(String email) throws Exception {
 		Usuario usuario = null;
 		EntityManager manager = BD.getConnexio();
 		usuario=manager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class).setParameter("email", email).getSingleResult();		
@@ -72,13 +72,13 @@ public class DAOUsuario {
 	 * Funcion para recibir todos los usuarios registrados
 	 * @return devuelve una lista de usuarios
 	 */
-	public List<Usuario>getAllUsuario(){
+	public static List<Usuario>getAllUsuario(){
 		EntityManager manager = BD.getConnexio();
 		List<Usuario> usuarios = (List<Usuario>) manager.createQuery("FROM Usuario").getResultList();
 		BD.tancarConnexio();
 		return usuarios;
 	}
-
+	
 /*
 	public static void main(String[] args) {
 		EntityManager manager = BD.getConnexio();
