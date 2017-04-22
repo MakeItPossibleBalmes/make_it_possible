@@ -87,8 +87,9 @@ public class DataAccess<T> {
 		T dummy = null;
 		
 		try {
-			startTransaction();
 			dummy = (T) get(primary, value,entity);
+			
+			startTransaction();			
 			getSesion().delete(dummy);
 			finishTransaction();
 		} catch (HibernateException he) {
@@ -98,6 +99,30 @@ public class DataAccess<T> {
 		}
 
 		return dummy;
+	}
+	
+	/**
+	 * Función de eliminación simplificada.
+	 * @param entity
+	 * @param id Id de la entidad a eliminar.
+	 * @return
+	 * @throws HibernateException
+	 */
+	protected static <T> boolean delete(Class<T> entity,  int id) throws HibernateException {
+		boolean done = false;
+		T data = get(entity, id);
+		try {
+			startTransaction();			
+			getSesion().delete(data);
+			finishTransaction();			
+			done = true;
+		} catch (HibernateException he) {
+			manageException(he);
+		} finally {
+			getSesion().close();
+		}
+
+		return done;
 	}
 	
 	/**
