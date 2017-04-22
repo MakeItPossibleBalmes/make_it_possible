@@ -108,8 +108,13 @@ public class Registro extends HttpServlet {
 			Usuario usuario=new Usuario(datos.get(0),datos.get(1),datos.get(3),datos.get(4),datos.get(5),datos.get(6));
 			DAOUsuario.insertUsuario(usuario);
             request.getSession().setAttribute("usuario", usuario);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            
+            //<!> Con request Dispatches solo va a modificar la vista que sale, nos interesa que haga una redirección teniendo ya el usuario logeado.
+            //request.getRequestDispatcher("index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/");
 		} catch (Exception e) {
+			request.setAttribute("error", true);
+			doGet(request, response);
 			throw new ServletException(e);
 		}
 
