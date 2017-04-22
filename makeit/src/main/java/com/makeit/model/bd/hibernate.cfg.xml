@@ -18,7 +18,7 @@
         <!-- org.hibernate.dialect.PostgreSQLDialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <!-- Otras propiedades importantes -->
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
         <!-- COMENTAR PER RECUPERAR OBJECTES -->
         <!--<property name="hbm2ddl.auto">create</property>-->
         
