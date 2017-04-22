@@ -20,6 +20,7 @@
         
         <div class="container" id="home-page">
         	<h1>Make it Possible y tal</h1>
+        	<p>Descripción de qué consiste esta web u otro texto de relleno</p>
         	<div class="row">
 				<!-- Contenido Principal -->
         		<div class="col-sm-9" id="destacados">
