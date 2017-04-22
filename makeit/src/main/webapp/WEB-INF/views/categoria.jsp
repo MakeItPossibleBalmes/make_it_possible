@@ -18,7 +18,7 @@
     <body>
     <jsp:include page="include/head.jsp"></jsp:include>
         
-        <div class="container" id="home-page">
+        <div class="container" id="temas-categoria">
         	<h1>${categoria.nombre }</h1>
         	<c:forEach var="tema" items="${temas}">		
     				<jsp:include page="include/bloque_tema.jsp"></jsp:include>

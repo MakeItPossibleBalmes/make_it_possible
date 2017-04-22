@@ -125,6 +125,28 @@ public class DataAccess<T> {
 		return dummy;
 	}
 	
+	/**
+	 * 
+	 * @param entity Clase de la entidad a encontrar
+	 * @param id Valor de la clave primaria.
+	 * @return
+	 * @throws HibernateException
+	 */
+	public static <T> T get(Class<T> entity,  int id) throws HibernateException {
+		T dummy = null;
+		try {
+			startTransaction();
+			dummy = (T) getSesion().get(entity,id);
+			finishTransaction();
+		} catch (HibernateException he) {
+			manageException(he);
+		} finally {
+			getSesion().close();
+		}
+
+		return dummy;
+	}
+	
 	
 	/* =========== ESTO ESTÁ VIEJUNO =========== 
 

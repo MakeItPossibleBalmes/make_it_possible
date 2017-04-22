@@ -49,6 +49,7 @@ public class Tema implements Serializable{
 	@Column(name="fecha_creacion")
     private Date fecha_creacion;
 	
+	//TODO: Quizá hay que cambiarlo a EAGER para que no haya conflicto al haber cerrado la sesion de Hibernate y tal.
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
