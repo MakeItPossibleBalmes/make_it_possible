@@ -6,12 +6,18 @@
 package com.makeit.model.POJO;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +40,10 @@ public class Categoria implements Serializable{
 	
 	@Column(name="nombre",nullable=false)
     private String nombre;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "categoria_id") }, inverseJoinColumns = { @JoinColumn(name = "tema_id") })
+	private Set<Tema> temas = new HashSet<Tema>();
     
     public Categoria(){
         
@@ -42,6 +52,10 @@ public class Categoria implements Serializable{
     public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+    
+    public Categoria(String nombre){
+    	this.nombre = nombre;
     }
 
     public int getId() {
@@ -58,6 +72,14 @@ public class Categoria implements Serializable{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public Set<Tema> getTemas() {
+        return temas;
+    }
+
+    public void setTemas(Set<Tema> temas) {
+        this.temas = temas;
     }
     
 }

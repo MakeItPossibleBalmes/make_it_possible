@@ -25,7 +25,7 @@ public class DAOCategoria extends DataAccess<Categoria> {
 	 * @return Id de la categoría insertada
 	 * @throws HibernateException
 	 */
-	public long insertCategoria(Categoria categoria) throws HibernateException {
+	public static long insertCategoria(Categoria categoria) throws HibernateException {
 		/*
 		 * EntityManager manager = BD.getConnexio();
 		 * manager.getTransaction().begin(); manager.persist(categoria);
@@ -42,7 +42,7 @@ public class DAOCategoria extends DataAccess<Categoria> {
 	 * @return Categoría encontrada por esa id
 	 * @throws HibernateException
 	 */
-	public Categoria getCategoria(long id) throws HibernateException {
+	public static Categoria getCategoria(long id) throws HibernateException {
 		/*
 		 * EntityManager manager = BD.getConnexio(); categoria =
 		 * manager.find(Categoria.class, id); BD.tancarConnexio();
@@ -56,7 +56,7 @@ public class DAOCategoria extends DataAccess<Categoria> {
 	 * @return Lista de todas las categorías
 	 * @throws HibernateException
 	 */
-	public List<Categoria> getAllCategorias() throws HibernateException {
+	public static List<Categoria> getAllCategorias() throws HibernateException {
 		/*
 		 * EntityManager manager = BD.getConnexio(); List<Categoria> categorias
 		 * = (List<Categoria>)
@@ -71,7 +71,6 @@ public class DAOCategoria extends DataAccess<Categoria> {
 			finishTransaction();
 		} catch (HibernateException he) {
 			manageException(he);
-			throw he;
 		} finally {
 			getSesion().close();
 		}

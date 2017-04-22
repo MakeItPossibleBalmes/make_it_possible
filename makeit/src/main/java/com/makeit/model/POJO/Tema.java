@@ -59,7 +59,7 @@ public class Tema implements Serializable{
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "tema_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
-	private Set<Categoria> categoria=new HashSet<Categoria>();
+	private Set<Categoria> categorias=new HashSet<Categoria>();
 	
     
     public Tema(){
@@ -144,12 +144,12 @@ public class Tema implements Serializable{
 
 
 	public Set<Categoria> getCategoria() {
-		return categoria;
+		return categorias;
 	}
 
 
 	public void setCategoria(Set<Categoria> categoria) {
-		this.categoria = categoria;
+		this.categorias = categoria;
 	}
 
 
