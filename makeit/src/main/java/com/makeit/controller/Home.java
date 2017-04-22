@@ -38,7 +38,7 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	DAOCategoria daoc = new DAOCategoria();    	
+    	//DAOCategoria daoc = new DAOCategoria();    	
     	
     	/*List<Tema> destacados = DAOTema.getDestacados(5);
     	request.setAttribute("destacados", destacados);
@@ -46,7 +46,7 @@ public class Home extends HttpServlet {
     	//List<Categoria> categorias = daoc.getAllCategorias();
     	
     	//TODO:Que las categorias se envien bien y tal como mínimo.
-    	List<Categoria> categorias= daoc.getAllCategorias();
+    	List<Categoria> categorias= DAOCategoria.getAllCategorias();
     	
     	request.setAttribute("categorias", categorias);
     	/*

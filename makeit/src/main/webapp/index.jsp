@@ -19,14 +19,40 @@
     <jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
         
         <div class="container" id="home-page">
-			<c:forEach var="categoria" items="${categorias}">		
-				<tr>${categoria.nombre}<tr/>	
-			</c:forEach>
+        	<h1>Make it Possible y tal</h1>
+        	<div class="row">
+				<!-- Contenido Principal -->
+        		<div class="col-sm-9" id="destacados">
+        			<h3>Temas Destacados</h3>
+        			<c:forEach var="tema" items="${destacados}">		
+        				<jsp:include page="WEB-INF/views/include/bloque_tema.jsp"></jsp:include>
+					</c:forEach>
+        		</div>
+				<!-- Barra Lateral -->
+        		<div class="col-sm-3">
+        			<div id="categorias">
+        				<h3>Categorías</h3>
+        				<c:forEach var="categoria" items="${categorias}">		
+	        				<div class='tag-big'>
+	        					<a href="<%= request.getContextPath() %>/categoria?q=${categoria.id}"></a>${categoria.nombre}
+	        				</div>
+						</c:forEach>
+        			</div>
+        			
+        			<div id="mejorValorados">
+        				<h3>Temas Mejor Valorados</h3>
+        				<c:forEach var="tema" items="${mejorValorados}">		
+	        				<jsp:include page="WEB-INF/views/include/bloque_tema.jsp"></jsp:include>
+						</c:forEach>
+        			</div>
+        			
+        		</div>
+        	</div>		
 			
         </div>
+        
+        <jsp:include page="WEB-INF/views/include/foot.jsp"></jsp:include>
 
         <jsp:include page="WEB-INF/views/include/scripts.jsp"></jsp:include>
-    </body>
-    
-    <jsp:include page="WEB-INF/views/include/foot.jsp"></jsp:include>
+    </body>    
 </html>
