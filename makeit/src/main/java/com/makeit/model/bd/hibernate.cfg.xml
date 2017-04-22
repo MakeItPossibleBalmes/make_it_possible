@@ -24,6 +24,9 @@
         
         <!-- Archivos de mapeo - Arxiu des d'on es realitza el mapeig - CAL QUE SIGUI CLASS  -->
         <mapping class="com.makeit.model.POJO.Categoria"/>
+        <mapping class="com.makeit.model.POJO.Tema"/>
+        <mapping class="com.makeit.model.POJO.Usuario"/>
+        <mapping class="com.makeit.model.POJO.VotoTemaUsuario"/>
         
     </session-factory>
 </hibernate-configuration>

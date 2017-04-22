@@ -13,7 +13,7 @@ public class HibernateUtil {
 	
 	static {
 		try{
-			sessionFactory = new Configuration().configure().buildSessionFactory();
+			sessionFactory = new Configuration().configure("/com/makeit/model/bd/hibernate.cfg.xml").buildSessionFactory();
 		} catch (HibernateException he){
 			System.out.println("Error al iniciar la sesion Hibernate: "+he.getMessage());
 			throw new ExceptionInInitializerError(he);
