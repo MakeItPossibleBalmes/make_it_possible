@@ -109,7 +109,7 @@ public class Registro extends HttpServlet {
 			DAOUsuario.insertUsuario(usuario);
             request.getSession().setAttribute("usuario", usuario);
             
-            //<!> Con request Dispatches solo va a modificar la vista que sale, nos interesa que haga una redirección teniendo ya el usuario logeado.
+            //<!> Con request Dispatches solo va a modificar la vista que aparece, nos interesa que haga una redirección teniendo ya el usuario logeado.
             //request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect(request.getContextPath()+"/");
 		} catch (Exception e) {
