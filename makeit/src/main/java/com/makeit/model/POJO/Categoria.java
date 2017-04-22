@@ -42,7 +42,7 @@ public class Categoria implements Serializable{
 	@Column(name="nombre",nullable=false)
     private String nombre;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "categoria_id") }, inverseJoinColumns = { @JoinColumn(name = "tema_id") })
 	private Set<Tema> temas = new HashSet<Tema>();
     

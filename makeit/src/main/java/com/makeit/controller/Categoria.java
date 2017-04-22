@@ -39,54 +39,77 @@ public class Categoria extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private com.makeit.model.POJO.Categoria buscaCategoria(HttpServletRequest request, HttpServletResponse response)
+    private void buscaTemasCategoria(HttpServletRequest request, int id)
             throws ServletException, IOException {
     	
-    	String catId = request.getParameter("q");
-    	com.makeit.model.POJO.Categoria categoria = null;
-    	if(catId != null){
-    		int id = Integer.parseInt(catId) ;
-    		//Hay conflictos con el nombre del servlet.
-        	//Ref futura: Cambiar el nombre de los servlets a <ClaseServlet> 
-        	categoria = DAOCategoria.getCategoria(id);
-        	
-        	request.setAttribute("categoria", categoria);
-        	//TODO: Quizá se puede recoger temas desde la JSP
-        	Set<Tema> temas = categoria.getTemas();
-        	if(temas.size() == 0){
-        		temas = new TreeSet<Tema>();
-        	}
-        	request.setAttribute("temas", temas);   	
-            
-    	} 
+    	com.makeit.model.POJO.Categoria categoria = DAOCategoria.getCategoria(id);
+        request.setAttribute("categoria", categoria);
+        Set<Tema> temas = categoria.getTemas();
+    	if(temas.size() == 0){
+    		temas = new TreeSet<Tema>();
+    	}
+    	request.setAttribute("temas", temas);     
     	
-    	return categoria;
     }
     
-    private void addCategoria(HttpServletRequest request, HttpServletResponse response)
+    private void addCategoria(HttpServletRequest request, HttpServletResponse response, String nombre)
             throws ServletException, IOException {
     	
+    	boolean resultado = false;//DAOCategoria.insertCategoria(new com.makeit.model.POJO.Categoria(nombre)); 
+    	
+    	if(!resultado){
+    		request.setAttribute("error", true);
+    	}
+    	
+    	response.sendRedirect(request.getContextPath()+"/categoria");
+    	/*RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(view);
+        dispatcher.forward(request, response);*/
+    }
+    
+    private void deleteCategoria(HttpServletRequest request,HttpServletResponse response, int id)
+            throws ServletException, IOException {
+    	
+    	if(! DAOCategoria.deleteCategoria(id)){
+    		request.setAttribute("errorDelete", true);
+    	}
+    	
+    	response.sendRedirect(request.getContextPath()+"/categoria");
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String view = "/WEB-INF/views/categoria.jsp";
-		com.makeit.model.POJO.Categoria categoria = buscaCategoria(request,response);
-		//No se ha encontrado nada así que cargamos el formulario.
-		if(categoria == null){
-			view = "/WEB-INF/views/addCategoria.jsp";
+		
+		String busqueda = request.getParameter("q");
+		String delete = request.getParameter("delete");		
+		
+		if(busqueda != null){
+			int id = Integer.parseInt(busqueda) ;
+			buscaTemasCategoria(request,id);
 		}
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(view);
-        dispatcher.forward(request, response);
+		
+		else if(delete != null){
+			int id = Integer.parseInt(delete);
+			deleteCategoria(request,response, id);
+		}
+		
+		else {
+			List<com.makeit.model.POJO.Categoria> categorias = DAOCategoria.getAllCategorias();
+			request.setAttribute("categorias", categorias);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/addCategoria.jsp");
+	        dispatcher.forward(request, response);
+		}		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		addCategoria(request, response);
+		
+		String nombre = request.getParameter("nombre");
+		addCategoria(request, response,nombre);
 	}
 
 }

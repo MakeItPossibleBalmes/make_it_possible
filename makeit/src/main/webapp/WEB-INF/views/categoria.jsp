@@ -2,6 +2,7 @@
     Document   : categoria
     Created on : Apr 22, 2017, 16:17:19 PM
     Author     : hartbold <ardevolp at gmail dot com>
+    Vista de todos los temas de una categoría.
 --%>
 
 <%@page import="com.makeit.model.POJO.Categoria"%>

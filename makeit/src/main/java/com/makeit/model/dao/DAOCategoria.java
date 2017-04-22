@@ -34,6 +34,11 @@ public class DAOCategoria extends DataAccess<Categoria> {
 
 		return insert(categoria);
 	}
+	
+	
+	public static boolean deleteCategoria(int id) throws HibernateException{
+		return delete(Categoria.class,id);
+	}
 
 	/**
 	 * 
