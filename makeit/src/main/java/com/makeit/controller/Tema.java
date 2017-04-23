@@ -34,15 +34,15 @@ public class Tema extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String view = "/META-INF/views/temasRecientes.jsp";
-        String create = request.getParameter("create");
+        String view = "/WEB-INF/views/temasRecientes.jsp";
+        String create = request.getParameter("a");
         if (create != null) {
             //doPost(request, response);
-            view = "/META-INF/views/addTema.jsp";
-        }
-
-        TreeSet<com.makeit.model.POJO.Tema> recientes = DAOTema.getRecientes();
-        request.setAttribute("recientes", recientes);
+            view = "/WEB-INF/views/addTema.jsp";
+        } else {
+        	TreeSet<com.makeit.model.POJO.Tema> recientes = DAOTema.getRecientes();
+            request.setAttribute("recientes", recientes);
+        }        
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(view);
         dispatcher.forward(request, response);

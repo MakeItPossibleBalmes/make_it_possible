@@ -29,9 +29,9 @@
 							<li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
 							<li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>					
 							<%-- Si es usuario --%>							
-							<li><a href="${pageContext.request.contextPath}/tema?create">Añadir Tema</a></li>
+							<li><a href="${pageContext.request.contextPath}/tema?a=create">Añadir Tema</a></li>
 							<li><a href="${pageContext.request.contextPath}/user">Usuario</a></li>
-							<li><a href="${pageContext.request.contextPath}/user?logout">Logout</a></li>
+							<li><a href="${pageContext.request.contextPath}/user?a=logout">Logout</a></li>
 							<%-- Si es admin --%>
 							<li><a href="${pageContext.request.contextPath}/categoria">Añadir Categoria</a></li>
 							
