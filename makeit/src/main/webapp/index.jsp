@@ -33,9 +33,10 @@
         		<div class="col-sm-3">
         			<div id="categorias">
         				<h3>Categorías</h3>
-        				<c:forEach var="categoria" items="${categorias}">		
+        				<c:forEach var="categoria" items="${categorias}">
+        					In		
 	        				<div class='tag-big'>
-	        					<a href="<%= request.getContextPath() %>/categoria?q=${categoria.id}"></a>${categoria.nombre}
+	        					<a href="<%= request.getContextPath() %>/categoria?q=${categoria.id}" class="btn btn-link">${categoria.nombre}</a>
 	        				</div>
 						</c:forEach>
         			</div>

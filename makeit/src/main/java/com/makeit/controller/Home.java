@@ -40,19 +40,16 @@ public class Home extends HttpServlet {
     	
     	//DAOCategoria daoc = new DAOCategoria();    	
     	
-    	/*List<Tema> destacados = DAOTema.getDestacados(5);
-    	request.setAttribute("destacados", destacados);
-    	*/
-    	//List<Categoria> categorias = daoc.getAllCategorias();
-    	
-    	//TODO:Que las categorias se envien bien y tal como mínimo.
+    	//List<Tema> destacados = DAOTema.getDestacados(5);
+    	//List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
     	List<Categoria> categorias= DAOCategoria.getAllCategorias();
     	
+    	
+    	//request.setAttribute("destacados", destacados);
+    	//request.setAttribute("mejorValorados", mejorValorados);
     	request.setAttribute("categorias", categorias);
-    	/*
-    	List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
-    	request.setAttribute("mejorValorados", mejorValorados);
-        */
+    	
+        
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
     }
