@@ -25,13 +25,13 @@
 						<!-- Right Side Of Navbar -->
 						<ul class="nav navbar-nav navbar-right">
 							<%-- Si es guest --%>
-							<li><a href="${pageContext.request.contextPath}/ultimos">Más Recientes</a></li>	
+							<li><a href="${pageContext.request.contextPath}/tema">Más Recientes</a></li>	
 							<li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
 							<li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>					
 							<%-- Si es usuario --%>							
-							<li><a href="${pageContext.request.contextPath}/tema">Añadir Tema</a></li>
-							<li><a href="${pageContext.request.contextPath}/tema">Usuario</a></li>
-							<li><a href="${pageContext.request.contextPath}/tema">Logout</a></li>
+							<li><a href="${pageContext.request.contextPath}/tema?create">Añadir Tema</a></li>
+							<li><a href="${pageContext.request.contextPath}/user">Usuario</a></li>
+							<li><a href="${pageContext.request.contextPath}/user?logout">Logout</a></li>
 							<%-- Si es admin --%>
 							<li><a href="${pageContext.request.contextPath}/categoria">Añadir Categoria</a></li>
 							
