@@ -82,6 +82,20 @@ public class Tema implements Serializable{
 		this.fecha_creacion = fecha_creacion;
 		this.usuario = usuario;
 	}
+	
+	/**
+	 * Cuando se añade un tema la fecha se establecerá en la base de datos automáticamente.
+	 * @param titulo
+	 * @param cuerpo
+	 * @param usuario
+	 */
+	public Tema(String titulo, String cuerpo, Usuario usuario) {
+		this.id = id;
+		this.titulo = titulo;
+		this.cuerpo = cuerpo;
+		this.fecha_creacion = fecha_creacion;
+		this.usuario = usuario;
+	}
 
 
 	public int getId() {

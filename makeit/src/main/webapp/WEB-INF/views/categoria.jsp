@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Make it Possible - Categoria ${categoria.nombre }</title>
-        <jsp:include page="/WEB-INF/views/include/styles.jsp"></jsp:include>
+        <jsp:include page="include/styles.jsp"></jsp:include>
     </head>
     <body>
     <jsp:include page="include/head.jsp"></jsp:include>
