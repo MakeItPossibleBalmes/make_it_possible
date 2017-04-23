@@ -12,6 +12,11 @@
         <property name="connection.username">makeitadmin</property>
         <property name="connection.password"></property>
         
+        <!-- Encoding de la base de datos -->
+        <property name="hibernate.connection.CharSet">utf8</property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        
         <!-- Configuracion del pool interno -->
         <property name="connection.pool_size">1</property>
         <!-- Dialecto de la base de datos -->
