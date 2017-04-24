@@ -7,6 +7,7 @@ package com.makeit.model.dao;
 
 import com.makeit.model.bd.BD;
 import com.makeit.model.POJO.Tema;
+import com.makeit.model.comparables.TemaFecha;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 
@@ -71,7 +73,12 @@ public class DAOTema {
 		int limite = 5;
 		
 		EntityManager manager = BD.getConnexio();
-		List<Tema> temas = (List<Tema>) manager.createQuery("FROM Tema ORDER BY fecha_creacion DESC");
+		List<Tema> temas = (List<Tema>) manager.createQuery("FROM Tema ORDER BY fecha_creacion DESC").getResultList();
+		
+		//Que no haya OutOfBounds
+		if(total > temas.size()){
+			total = temas.size();
+		}
 		
 		List<Tema> destacados = new ArrayList<Tema>();
 		for (int i = 0; i < total; i++) {
@@ -92,7 +99,10 @@ public class DAOTema {
 	 * @return
 	 */
 	public static List<Tema> getMejorValorados(int total){
-		List<Tema> temas = null;//getAllTemas();
+		List<Tema> temas = getAllTemas();
+		if(total > temas.size()){
+			total = temas.size();
+		}
 		
 		//TODO:Recoger el número de votos por cada tema. Ordenarlos de mayor a menor y devolver los temas. (Buscando por la key)
 		
@@ -106,4 +116,18 @@ public class DAOTema {
 		return temas;
 		
 	}
+        
+        public static TreeSet<Tema> getRecientes(){
+            //Utilizamos el comparator para establecer el orden.
+            TreeSet<Tema> temas = new TreeSet<Tema>(new TemaFecha());
+            Iterator i = getAllTemas().iterator();
+            
+            Tema t = null;
+            while(i.hasNext()){
+                t = (Tema) i.next();
+                temas.add(t);
+            }
+            
+            return temas;
+        }
 }

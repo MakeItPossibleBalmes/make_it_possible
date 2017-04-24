@@ -5,26 +5,22 @@
  */
 package com.makeit.controller;
 
+import com.makeit.model.POJO.Usuario;
+import com.makeit.model.dao.DAOTema;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
+import java.util.TreeSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.makeit.model.POJO.Categoria;
-import com.makeit.model.POJO.Tema;
-import com.makeit.model.dao.DAOTema;
-import com.makeit.model.dao.DAOCategoria;
+import sun.rmi.server.Dispatcher;
 
 /**
  *
  * @author hartbold <ardevolp at gmail dot com>
  */
-public class Home extends HttpServlet {
+public class Tema extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,21 +33,40 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	//DAOCategoria daoc = new DAOCategoria();    	
-    	
-    	//List<Tema> destacados = DAOTema.getDestacados(5);
-    	//List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
-    	List<Categoria> categorias= DAOCategoria.getAllCategorias();
-    	
-    	
-    	//request.setAttribute("destacados", destacados);
-    	//request.setAttribute("mejorValorados", mejorValorados);
-    	request.setAttribute("categorias", categorias);
-    	
-        
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+
+        String view = "/WEB-INF/views/temasRecientes.jsp";
+        String create = request.getParameter("a");
+        if (create != null) {
+            //doPost(request, response);
+            view = "/WEB-INF/views/addTema.jsp";
+        } else {
+        	TreeSet<com.makeit.model.POJO.Tema> recientes = DAOTema.getRecientes();
+            request.setAttribute("recientes", recientes);
+        }        
+
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(view);
         dispatcher.forward(request, response);
+    }
+
+    protected void createTema(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String titulo = request.getParameter("titulo");
+        String cuerpo = request.getParameter("cuerpo");
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+        com.makeit.model.POJO.Tema tema = new com.makeit.model.POJO.Tema(titulo, cuerpo, usuario);
+        String msg = "Error al insertar el tema";
+        try {
+            DAOTema.insertTema(tema);
+            msg = "Nuevo tema creado";
+        } catch (Exception e) {
+            System.out.println(msg + " " + e.getMessage());
+        }
+
+        request.setAttribute("msg",msg);
+        response.sendRedirect(request.getContextPath()+"/tema");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,7 +95,7 @@ public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        createTema(request, response);
     }
 
     /**

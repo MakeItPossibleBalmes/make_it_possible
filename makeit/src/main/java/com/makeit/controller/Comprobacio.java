@@ -17,18 +17,14 @@ import java.util.regex.Pattern;
  * @author razomiah
  */
 public class Comprobacio {
-    	public static boolean comprobarDatosForumlario(ArrayList<String> datos) throws Exception {
+    	public static boolean comprobarDatosForumlario(ArrayList<String> datos) throws InvalidEmail, PasswordException, InvalidName{
 		boolean correcto = true;
-		try{
 			isValidEmailAddress(datos.get(0));
 			isValidPassword(datos.get(1),datos.get(2));
 			isValidName(datos.get(3));
 			isValidName(datos.get(4));
 			isValidName(datos.get(5));
 			isValidName(datos.get(6));
-		}catch(Exception e){
-			throw new Exception(e);
-		}
 		return correcto;
 	}
 	public static boolean isValidName(String name) throws InvalidName{

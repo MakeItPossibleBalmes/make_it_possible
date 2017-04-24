@@ -49,6 +49,7 @@ public class Tema implements Serializable{
 	@Column(name="fecha_creacion")
     private Date fecha_creacion;
 	
+	//TODO: Quizá hay que cambiarlo a EAGER para que no haya conflicto al haber cerrado la sesion de Hibernate y tal.
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
@@ -59,7 +60,7 @@ public class Tema implements Serializable{
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "tema_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
-	private Set<Categoria> categoria=new HashSet<Categoria>();
+	private Set<Categoria> categorias=new HashSet<Categoria>();
 	
     
     public Tema(){
@@ -75,6 +76,20 @@ public class Tema implements Serializable{
 		this.usuario = usuario;
 	}
 	public Tema(String titulo, String cuerpo, Date fecha_creacion, Usuario usuario) {
+		this.id = id;
+		this.titulo = titulo;
+		this.cuerpo = cuerpo;
+		this.fecha_creacion = fecha_creacion;
+		this.usuario = usuario;
+	}
+	
+	/**
+	 * Cuando se añade un tema la fecha se establecerá en la base de datos automáticamente.
+	 * @param titulo
+	 * @param cuerpo
+	 * @param usuario
+	 */
+	public Tema(String titulo, String cuerpo, Usuario usuario) {
 		this.id = id;
 		this.titulo = titulo;
 		this.cuerpo = cuerpo;
@@ -144,12 +159,12 @@ public class Tema implements Serializable{
 
 
 	public Set<Categoria> getCategoria() {
-		return categoria;
+		return categorias;
 	}
 
 
 	public void setCategoria(Set<Categoria> categoria) {
-		this.categoria = categoria;
+		this.categorias = categoria;
 	}
 
 

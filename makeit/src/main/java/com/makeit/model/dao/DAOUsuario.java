@@ -18,6 +18,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.makeit.model.util.Crypt;
+
 /**
  *
  * @author razomiah
@@ -26,11 +28,14 @@ public class DAOUsuario {
 
 	/**
 	 * Inserta un usuario
+	 * Se guardará con la contraseña encriptada en SHA256
 	 * 
 	 * @param usuario
 	 * @throws Exception
 	 */
 	public static void insertUsuario(Usuario usuario) throws Exception {
+		usuario.setPassword(Crypt.encripta(usuario.getPassword()));
+		
 		EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(usuario);

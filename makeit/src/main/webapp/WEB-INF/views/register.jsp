@@ -15,7 +15,7 @@
     <body>
     <jsp:include page="include/head.jsp"></jsp:include>
         <div class="container" id="register-page">
-            <jsp:include page="register_form.jsp"></jsp:include>
+            <jsp:include page="include/register_form.jsp"></jsp:include>
         </div>
 
         <jsp:include page="include/scripts.jsp"></jsp:include>

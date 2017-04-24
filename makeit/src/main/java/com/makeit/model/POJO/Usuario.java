@@ -5,6 +5,8 @@
  */
 package com.makeit.model.POJO;
 
+import com.makeit.model.util.Crypt;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
