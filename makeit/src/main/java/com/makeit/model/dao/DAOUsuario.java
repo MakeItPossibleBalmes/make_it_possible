@@ -34,7 +34,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
      * @param usuario
      * @throws Exception
      */
-    public static void insertUsuario(Usuario usuario) throws Exception {
+    public static void insertUsuario(Usuario usuario){
         /*usuario.setPassword(Crypt.encripta(usuario.getPassword()));
 		EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
@@ -51,7 +51,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
      * @return
      * @throws Exception
      */
-    public static Usuario getUsuario(int id) throws Exception {
+    public static Usuario getUsuario(int id){
         Usuario usuario = null;
         /*EntityManager manager = BD.getConnexio();
 		usuario = manager.find(Usuario.class, id);
@@ -68,7 +68,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
      * @return
      * @throws Exception
      */
-    public static Usuario getUsuario(String email) throws Exception {
+    public static Usuario getUsuario(String email){
         Usuario usuario = null;
         try {
             startTransaction();

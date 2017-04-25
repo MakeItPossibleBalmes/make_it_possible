@@ -112,13 +112,14 @@ public class DAOTema extends DataAccess<Tema> {
             finishTransaction();
             if (total > temas.size()) {
                 total = temas.size();
-                for (int i = 0; i < total; i++) {
-                    Tema t = temas.get(i);
-                    if (t.getVotos().size() > limite) {
-                        destacados.add(t);
-                    }
+            }
+            for (int i = 0; i < total; i++) {
+                Tema t = temas.get(i);
+                if (t.getVotos().size() > limite) {
+                    destacados.add(t);
                 }
             }
+
         } catch (HibernateException he) {
             manageException(he);
         } finally {
