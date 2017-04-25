@@ -17,19 +17,29 @@
             <div class="container" id="register-page">
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                            <h2 class="text-center">
-                                Únete a Make It Possible
+                        <h2 class="text-center">
+                            Únete a Make It Possible
 
-                                <br />
-                            </h2>
+                            <br />
+                        </h2>
                         <p class="text-center">Forma parte de la mayor comunidad de propuestas. Tú haces la portada.</p>
                     </div>
                 </div>
+                        <div class="row"><div class="col-sm-6 col-sm-offset-3 text-center">
+                                <%
+                                    //de momento no funciona
+                                    if(request.getParameter("error")!=null){
+                                        out.print("<p><strong>"+request.getParameter("error")+"</strong><p>");
+                                    }else{
+                                        //out.print("es null");
+                                    }
+                                %>
+                    </div></div>
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
                     <jsp:include page="include/register_form.jsp"></jsp:include>
                     </div>
-            </div>
+                </div>
             </div>
 
         <jsp:include page="include/scripts.jsp"></jsp:include>
