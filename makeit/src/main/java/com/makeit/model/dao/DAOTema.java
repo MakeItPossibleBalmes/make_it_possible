@@ -90,32 +90,41 @@ public class DAOTema extends DataAccess<Tema> {
      */
     public static List<Tema> getDestacados(int total) {
         int limite = 5;
-        EntityManager manager = BD.getConnexio();
+        /*   EntityManager manager = BD.getConnexio();
         List<Tema> temas = (List<Tema>) manager.createQuery("FROM Tema ORDER BY fecha_creacion DESC").getResultList();
         //Que no haya OutOfBounds
         if (total > temas.size()) {
             total = temas.size();
         }
-
+         */
         List<Tema> destacados = new ArrayList<Tema>();
-        for (int i = 0; i < total; i++) {
+        /*  for (int i = 0; i < total; i++) {
             Tema t = temas.get(i);
             if (t.getVotos().size() > limite) {
                 destacados.add(t);
             }
         }
-        BD.tancarConnexio();
-       
+        BD.tancarConnexio();*/
+        List<Tema> temas = new ArrayList<Tema>();
         try {
             startTransaction();
-            temas = getSesion().createQuery("FROM Usuario").list();
+            temas = (List<Tema>) getSesion().createQuery("FROM Tema ORDER BY fecha_creacion DESC").list();
             finishTransaction();
+            if (total > temas.size()) {
+                total = temas.size();
+                for (int i = 0; i < total; i++) {
+                    Tema t = temas.get(i);
+                    if (t.getVotos().size() > limite) {
+                        destacados.add(t);
+                    }
+                }
+            }
         } catch (HibernateException he) {
             manageException(he);
         } finally {
             getSesion().close();
         }
-         return destacados;
+        return destacados;
     }
 
     /**
