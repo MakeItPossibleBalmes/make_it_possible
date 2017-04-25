@@ -1,7 +1,9 @@
 /**
 * Página de estilos personalizados
 */
-
+body{
+    font-family: 'Raleway', sans-serif;
+}
 #form-registro{
     max-width: 600px;
 }
