@@ -8,172 +8,176 @@ import org.hibernate.Transaction;
 import com.makeit.model.bd.HibernateUtil;
 
 /**
- * 
+ *
  * @author hartbold <ardevolp at gmail dot com>
  */
 public class DataAccess<T> {
-	
-	private static Session sesion;
-	
-	public static Session getSesion() {
-		return sesion;
-	}
-	
-	public static void setSesion(Session ss) {
-		sesion = ss;
-	}
-	
-	/**
-	 * 
-	 * @throws HibernateException
-	 */
-	protected static void startTransaction() throws HibernateException {
-		setSesion(HibernateUtil.getSessionFactory().openSession());
-		getSesion().getTransaction().begin();
-	}
-	
-	/**
-	 * 
-	 * @throws HibernateException
-	 */
-	protected static void finishTransaction() throws HibernateException {
-		getSesion().flush();
-		getSesion().getTransaction().commit();
-	}
-	
-	/**
-	 * Función encargada de administrar las excepciones producidas en la transacción.
-	 * @param he
-	 * @throws HibernateException
-	 */
-	protected static void manageException(HibernateException he) throws HibernateException {
-		getSesion().getTransaction().rollback();
-		throw new HibernateException("Error en la capa de acceso a datos:", he);
-	}
-	
-	/**
-	 * 
-	 * @param data Objeto a persistir.
-	 * @return Resultado de la operación.
-	 * @throws HibernateException
-	 */
-	protected static <T> Boolean insert(T data) throws HibernateException {
-		
-		Boolean done = false;
 
-		try {
-			startTransaction();
-			getSesion().saveOrUpdate(data);
-			done = true;			
-			finishTransaction();
-		} catch (HibernateException e) {
-			manageException(e);
-		} finally {
-			getSesion().close();
-		}
+    private static Session sesion;
 
-		return done;
-	}
-	
-	/**
-	 * 
-	 * @param primary Atributo de la base de datos que es la Pimary Key
-	 * @param value Id de la entidad a eliminar
-	 * @param entity 
-	 * @return La entidad que se ha eliminado pasa a estar no persistida pero no la perdemos totalmente.
-	 * @throws HibernateException
-	 */
-	protected static <T> T delete(String primary, String value, Class<T> entity) throws HibernateException {
-		T dummy = null;
-		
-		try {
-			dummy = (T) get(primary, value,entity);
-			
-			startTransaction();			
-			getSesion().delete(dummy);
-			finishTransaction();
-		} catch (HibernateException he) {
-			manageException(he);
-		} finally {
-			getSesion().close();
-		}
+    public static Session getSesion() {
+        return sesion;
+    }
 
-		return dummy;
-	}
-	
-	/**
-	 * Función de eliminación simplificada.
-	 * @param entity
-	 * @param id Id de la entidad a eliminar.
-	 * @return
-	 * @throws HibernateException
-	 */
-	protected static <T> boolean delete(Class<T> entity,  int id) throws HibernateException {
-		boolean done = false;
-		T data = get(entity, id);
-		try {
-			startTransaction();			
-			getSesion().delete(data);
-			finishTransaction();			
-			done = true;
-		} catch (HibernateException he) {
-			manageException(he);
-		} finally {
-			getSesion().close();
-		}
+    public static void setSesion(Session ss) {
+        sesion = ss;
+    }
 
-		return done;
-	}
-	
-	/**
-	 * Función de búsqueda de una entidad por clave primaria.
-	 * @param primary Atributo de la base de datos que es la Pimary Key
-	 * @param value Valor del atributo a buscar
-	 * @param entity 
-	 * @return
-	 * @throws HibernateException
-	 */
-	protected static <T> T get(String primary, String value, Class<T> entity) throws HibernateException {
-		T dummy = null;
-		try {
-			startTransaction();
-			
-			Query query = getSesion().createQuery("SELECT e FROM "+entity.getName()+" as e WHERE e."+primary+"=:"+primary).setParameter(primary, value);
-			dummy = (T) query.uniqueResult();
-			finishTransaction();
-		} catch (HibernateException he) {
-			manageException(he);
-		} finally {
-			getSesion().close();
-		}
+    /**
+     *
+     * @throws HibernateException
+     */
+    protected static void startTransaction() throws HibernateException {
+        setSesion(HibernateUtil.getSessionFactory().openSession());
+        getSesion().getTransaction().begin();
+    }
 
-		return dummy;
-	}
-	
-	/**
-	 * 
-	 * @param entity Clase de la entidad a encontrar
-	 * @param id Valor de la clave primaria.
-	 * @return
-	 * @throws HibernateException
-	 */
-	public static <T> T get(Class<T> entity,  int id) throws HibernateException {
-		T dummy = null;
-		try {
-			startTransaction();
-			dummy = (T) getSesion().get(entity,id);
-			finishTransaction();
-		} catch (HibernateException he) {
-			manageException(he);
-		} finally {
-			getSesion().close();
-		}
+    /**
+     *
+     * @throws HibernateException
+     */
+    protected static void finishTransaction() throws HibernateException {
+        getSesion().flush();
+        getSesion().getTransaction().commit();
+    }
 
-		return dummy;
-	}
-	
-	
-	/* =========== ESTO ESTÁ VIEJUNO =========== 
+    /**
+     * Función encargada de administrar las excepciones producidas en la
+     * transacción.
+     *
+     * @param he
+     * @throws HibernateException
+     */
+    protected static void manageException(HibernateException he) throws HibernateException {
+        getSesion().getTransaction().rollback();
+        throw new HibernateException("Error en la capa de acceso a datos:", he);
+    }
+
+    /**
+     *
+     * @param data Objeto a persistir.
+     * @return Resultado de la operación.
+     * @throws HibernateException
+     */
+    protected static <T> Boolean insert(T data) throws HibernateException {
+
+        Boolean done = false;
+
+        try {
+            startTransaction();
+            getSesion().saveOrUpdate(data);
+            done = true;
+            finishTransaction();
+        } catch (HibernateException e) {
+            manageException(e);
+        } finally {
+            getSesion().close();
+        }
+
+        return done;
+    }
+
+    /**
+     *
+     * @param primary Atributo de la base de datos que es la Pimary Key
+     * @param value Id de la entidad a eliminar
+     * @param entity
+     * @return La entidad que se ha eliminado pasa a estar no persistida pero no
+     * la perdemos totalmente.
+     * @throws HibernateException
+     */
+    protected static <T> T delete(String primary, String value, Class<T> entity) throws HibernateException {
+        T dummy = null;
+
+        try {
+            dummy = (T) get(primary, value, entity);
+
+            startTransaction();
+            getSesion().delete(dummy);
+            finishTransaction();
+        } catch (HibernateException he) {
+            manageException(he);
+        } finally {
+            getSesion().close();
+        }
+
+        return dummy;
+    }
+
+    /**
+     * Función de eliminación simplificada.
+     *
+     * @param entity
+     * @param id Id de la entidad a eliminar.
+     * @return
+     * @throws HibernateException
+     */
+    protected static <T> boolean delete(Class<T> entity, int id) throws HibernateException {
+        boolean done = false;
+        T data = get(entity, id);
+        try {
+            startTransaction();
+            getSesion().delete(data);
+            finishTransaction();
+            done = true;
+        } catch (HibernateException he) {
+            manageException(he);
+        } finally {
+            getSesion().close();
+        }
+
+        return done;
+    }
+
+    /**
+     * Función de búsqueda de una entidad por clave primaria.
+     *
+     * @param primary Atributo de la base de datos que es la Pimary Key
+     * @param value Valor del atributo a buscar
+     * @param entity
+     * @return
+     * @throws HibernateException
+     */
+    protected static <T> T get(String primary, String value, Class<T> entity) throws HibernateException {
+        T dummy = null;
+        try {
+            startTransaction();
+
+            Query query = getSesion().createQuery("SELECT e FROM " + entity.getName() + " as e WHERE e." + primary + "=:" + primary).setParameter(primary, value);
+            dummy = (T) query.uniqueResult();
+            finishTransaction();
+        } catch (HibernateException he) {
+            manageException(he);
+        } finally {
+            getSesion().close();
+        }
+
+        return dummy;
+    }
+
+    /**
+     *
+     * @param entity Clase de la entidad a encontrar
+     * @param id Valor de la clave primaria.
+     * @return
+     * @throws HibernateException
+     */
+    public static <T> T get(Class<T> entity, int id) throws HibernateException {
+        T dummy = null;
+        try {
+            startTransaction();
+            dummy = (T) getSesion().get(entity, id);
+            finishTransaction();
+        } catch (HibernateException he) {
+            manageException(he);
+        } finally {
+            getSesion().close();
+        }
+
+        return dummy;
+    }
+
+    /* =========== ESTO ESTÁ VIEJUNO =========== 
 
 
 	private static SessionFactory factory;
@@ -270,5 +274,5 @@ public class DataAccess<T> {
 
 		return dummy;
 	}
-	*/
+     */
 }
