@@ -42,12 +42,12 @@ public class Home extends HttpServlet {
     	
     	//List<Tema> destacados = DAOTema.getDestacados(5);
     	//List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
-    	List<Categoria> categorias= DAOCategoria.getAllCategorias();
+    	//List<Categoria> categorias= DAOCategoria.getAllCategorias();
     	
     	
     	//request.setAttribute("destacados", destacados);
     	//request.setAttribute("mejorValorados", mejorValorados);
-    	request.setAttribute("categorias", categorias);
+    	//request.setAttribute("categorias", categorias);
     	
         
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
