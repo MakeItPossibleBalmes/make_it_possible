@@ -41,7 +41,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
 		manager.persist(usuario);
 		manager.getTransaction().commit();
 		BD.tancarConnexio();*/
-        insert(usuario);
+        insert(usuario);                    
     }
 
     /**
