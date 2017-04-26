@@ -44,8 +44,7 @@ public class Voto extends HttpServlet {
                         DAOVoto.insertVoto(usuario,tema);
                     break;
                 case "cancelar_voto":
-                    Usuario u=DAOUsuario.getUsuario(usuario.getId());  
-                    u.getVotos().remove(u);
+                    DAOVoto.cancelarVoto(usuario, tema);
                     break;
             }
         } catch (Exception e) {
