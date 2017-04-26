@@ -33,7 +33,7 @@ public class DAOTema extends DataAccess<Tema> {
      * @param tema
      * @throws Exception
      */
-    public static void insertTema(Tema tema) throws Exception {
+    public static void insertTema(Tema tema){
         /*EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(tema);
@@ -49,7 +49,7 @@ public class DAOTema extends DataAccess<Tema> {
      * @return
      * @throws Exception
      */
-    public static Tema getTema(int id) throws Exception {
+    public static Tema getTema(int id) {
         /*Tema tema = null;
 		EntityManager manager = BD.getConnexio();
 		tema = manager.find(Tema.class, id);
