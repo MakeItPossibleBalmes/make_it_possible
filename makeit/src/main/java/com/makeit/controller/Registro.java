@@ -65,11 +65,15 @@ public class Registro extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/");
         } catch (InvalidEmail e) {
             request.setAttribute("error", "email invalido");
+            System.out.println("---------------------------------------invalidemail");
         } catch (InvalidName e) {
+               System.out.println("---------------------------------------invalidenemae");
             request.setAttribute("error", "algunos campos de nombres invalidos");
         } catch (PasswordException e) {
+               System.out.println("---------------------------------------passwordexpt");
             request.setAttribute("error", "contraseña invalida");
         } catch (Exception e) {
+               System.out.println("---------------------------------------excepcionerror");
             request.setAttribute("error", "error extraño, contacte con el admin");
         } finally {
             request.setAttribute("datos", datos);
