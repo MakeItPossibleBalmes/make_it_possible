@@ -46,6 +46,7 @@ public class Registro extends HttpServlet {
      */
     protected void peticionRegistro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	boolean valido = false;
         ArrayList<String> datos = new ArrayList<String>();
         datos.add(request.getParameter("email"));
         datos.add(request.getParameter("password"));
@@ -63,21 +64,26 @@ public class Registro extends HttpServlet {
             //<!> Con request Dispatches solo va a modificar la vista que aparece, nos interesa que haga una redirección teniendo ya el usuario logeado.
             //request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/");
+            valido = true;
         } catch (InvalidEmail e) {
             request.setAttribute("error", "email invalido");
-            System.out.println("---------------------------------------invalidemail");
+            System.out.println("---------------------------------------invalidemail:"+e.getMessage());
         } catch (InvalidName e) {
-               System.out.println("---------------------------------------invalidenemae");
+               System.out.println("---------------------------------------invalid Name:"+e.getMessage());
             request.setAttribute("error", "algunos campos de nombres invalidos");
         } catch (PasswordException e) {
-               System.out.println("---------------------------------------passwordexpt");
+               System.out.println("---------------------------------------passwordexpt:"+e.getMessage());
             request.setAttribute("error", "contraseña invalida");
         } catch (Exception e) {
-               System.out.println("---------------------------------------excepcionerror");
+               System.out.println("---------------------------------------excepcionerror:"+e.getMessage());
             request.setAttribute("error", "error extraño, contacte con el admin");
         } finally {
             request.setAttribute("datos", datos);
-            doGet(request, response);
+            if(!valido){
+            	//El valido controla que no esté instanciada la redirecció. Si se envia la redirección al dispatcher petará muy duro.
+            	doGet(request, response);
+            }
+            
         }
 
     }

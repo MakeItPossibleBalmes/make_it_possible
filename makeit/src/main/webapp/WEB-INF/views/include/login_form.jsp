@@ -1,4 +1,4 @@
-<form action="/login" method="POST" class="form-horizontal centrado"
+<form action="<%= request.getContextPath() %>/login" method="POST" class="form-horizontal centrado"
 	role="form">
 	<div class="form-group">
 		<label for="email" class="cols-sm-2 control-label">Email</label>

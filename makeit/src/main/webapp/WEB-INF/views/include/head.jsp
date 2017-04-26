@@ -3,6 +3,8 @@
     Created on : 10-Apr-2017, 16:13:51
     Author     : hartbold <ardevolp at gmail dot com>
 --%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<header>
 			<nav class="navbar navbar-default navbar-static-top">
 				<div class="container">
@@ -24,14 +26,19 @@
 					<div class="collapse navbar-collapse" id="app-navbar-collapse">
 						<!-- Right Side Of Navbar -->
 						<ul class="nav navbar-nav navbar-right">
-							<%-- Si es guest --%>
-							<li><a href="${pageContext.request.contextPath}/tema">Más Recientes</a></li>	
-							<li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
-							<li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>					
-							<%-- Si es usuario --%>							
-							<li><a href="${pageContext.request.contextPath}/tema?a=create">Añadir Tema</a></li>
-							<li><a href="${pageContext.request.contextPath}/user">Usuario</a></li>
-							<li><a href="${pageContext.request.contextPath}/user?a=logout">Logout</a></li>
+							<li><a href="${pageContext.request.contextPath}/tema">Más Recientes</a></li>
+							<c:choose>
+							    <c:when test="${sessionScope.usuario != null}">
+							        <li><a href="${pageContext.request.contextPath}/tema?a=create">Añadir Tema</a></li>
+									<li><a href="${pageContext.request.contextPath}/user">Usuario</a></li>
+									<li><a href="${pageContext.request.contextPath}/login?a=logout">Logout</a></li>
+							    </c:when>    
+							    <c:otherwise>							        	
+									<li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
+									<li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>
+							    </c:otherwise>
+							</c:choose>			
+							
 							<%-- Si es admin --%>
 							<li><a href="${pageContext.request.contextPath}/categoria">Añadir Categoria</a></li>
 							

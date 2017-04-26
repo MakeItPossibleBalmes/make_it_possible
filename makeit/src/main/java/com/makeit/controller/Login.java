@@ -40,6 +40,7 @@ public class Login extends HttpServlet {
     protected void procesarLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = "";
+        boolean valido = false;
         try {
             email = request.getParameter("email");
             String psw = request.getParameter("password");
@@ -48,33 +49,26 @@ public class Login extends HttpServlet {
                 if (usuario.getPassword().equals(Crypt.encripta(psw))) {
                     request.getSession().setAttribute("usuario", usuario);
                     response.sendRedirect(request.getContextPath() + "/");
+                    valido = true;
                 }else{
                     request.setAttribute("error", "datos contraseña incorrecta");
-                    doGet(request, response);
+                    //doGet(request, response);
                 }
             }
         } catch (InvalidEmail e) {
-            request.setAttribute("error", "email invalido");
+            request.setAttribute("error", "email invalido"+e.getMessage());
         } catch (PasswordException e) {
-            request.setAttribute("error", "contraseña invalida");
+            request.setAttribute("error", "contraseña invalida"+e.getMessage());
         } catch (Exception e) {
-            request.setAttribute("error", "error extraño, contacte con el admin");
+            request.setAttribute("error", "error extraño, contacte con el admin"+e.getMessage());
         } finally {
             request.setAttribute("email", email);
-            doGet(request, response);
+            if(!valido){
+            	doGet(request, response);
+            }
+            
         }
 
-        /*TODO:
-            Las conexiones al final las establecemos con hibernate?
-            Función de encriptación.
-            Función para comprobar si el formato de dni que llega es correcto - aún que ya se valide en el form.
-            Añadir un e-mail al usuario estaría guai.
-         */
-        //-------------------------------
-        //GET USUARIO CON EL MISMO NOMBRE
-        //RECOGER SU CONTRASEÑA Y COMPRARARLA A LA QUE NOS LLEGA (comprar encriptada)
-        //SI EXISTE --> CREAR COOKIE DE SESION
-        //SI NO --> REDIRIGIR A LA PÁGINA DE INICIO CON EL MENSAJE DE ERROR.
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,8 +83,18 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
-        dispatcher.forward(request, response);
+    	
+    	String action = request.getParameter("a");
+    	if(action != null){
+    		request.getSession().removeAttribute("usuario");
+    		response.sendRedirect(request.getContextPath()+"/login");
+    	}else {
+    		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
+            dispatcher.forward(request, response);
+    	}
+    	
+    	
+        
     }
 
     /**
