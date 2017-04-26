@@ -10,15 +10,39 @@ import java.security.SecureRandom;
  * @author hartbold <ardevolp at gmail dot com>
  */
 public class Crypt {
+	
+	/**
+	 * Función de encriptación en MD5
+	 * @param original
+	 * @return Texto encriptado.
+	 */
+	public static String encripta(String original) {
+
+		try {
+			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+			byte[] array = md.digest(original.getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < array.length; ++i) {
+				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+			}
+			return sb.toString();
+		} catch (java.security.NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
 
 	/**
-	 * Función para encriptar en SHA-256
+	 * <b>No furula guay</b>Función para encriptar en SHA-256
 	 * @param original Texto a encriptar
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String encripta(String original) {
+	public static String old_encripta(String original) {
 
 		String pwd = null;
 
