@@ -41,6 +41,9 @@ public class DAOUsuario extends DataAccess<Usuario> {
 		manager.persist(usuario);
 		manager.getTransaction().commit();
 		BD.tancarConnexio();*/
+    	
+    	//Pablo - Guardamos contraseña encriptada.
+    	usuario.setPassword(Crypt.encripta(usuario.getPassword()));
         insert(usuario);                    
     }
 
