@@ -28,14 +28,18 @@ public class Comprobacio {
 		return correcto;
 	}
 	public static boolean isValidName(String name) throws InvalidName{
-		String regx = "^[\\p{L} .'-]+$";
+		/*String regx = "^[a-zA-Z \\-]+$";
 		Pattern pattern = Pattern.compile(regx);
 		Matcher matcher = pattern.matcher(name);
 		if(matcher.matches() && name.length()>=2){
 			return true;
 		}else{
 			throw new InvalidName();
-		}
+		}*/
+		
+		//Pablo - 27/04
+		//Que pongan lo que quieran en el nombre, controlar acentos y todos es un coñazo xd
+		return true;
 		
 	}
 	public static boolean isValidPassword(String password,String password_confirmation) throws PasswordException{
