@@ -20,6 +20,10 @@
         <servlet-name>Tema</servlet-name>
         <servlet-class>com.makeit.controller.Tema</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Voto</servlet-name>
+        <servlet-class>com.makeit.controller.Voto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Tema</servlet-name>
         <url-pattern>/tema</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Voto</servlet-name>
+        <url-pattern>/Voto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
