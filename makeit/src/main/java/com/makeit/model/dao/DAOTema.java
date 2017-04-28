@@ -41,6 +41,21 @@ public class DAOTema extends DataAccess<Tema> {
 		BD.tancarConnexio();*/
         insert(tema);
     }
+    
+    public static Tema getLastInserted(){
+    	int lastId = -1; 
+    	try {
+            startTransaction();
+            lastId = (int) getSesion().createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult();
+            finishTransaction();
+        } catch (HibernateException he) {
+            manageException(he);
+        } finally {
+            getSesion().close();
+        }
+    	
+    	return getTema(lastId);
+    }
 
     /**
      * Busca tema con id
@@ -71,7 +86,7 @@ public class DAOTema extends DataAccess<Tema> {
         List<Tema> temas = null;
         try {
             startTransaction();
-            temas = (List<Tema>) getSesion().createQuery("FROM Tema").list();
+            temas = (List<Tema>) getSesion().createQuery("FROM Tema ORDER BY fecha_creacion DESC").list();
             finishTransaction();
         } catch (HibernateException he) {
             manageException(he);
