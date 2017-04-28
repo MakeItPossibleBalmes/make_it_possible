@@ -5,16 +5,20 @@
  */
 package com.makeit.controller;
 
+import com.makeit.model.POJO.Categoria;
 import com.makeit.model.POJO.Usuario;
+import com.makeit.model.dao.DAOCategoria;
 import com.makeit.model.dao.DAOTema;
+
+import java.util.List;
+
 import java.io.IOException;
-import java.util.TreeSet;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sun.rmi.server.Dispatcher;
 
 /**
  *
@@ -37,6 +41,10 @@ public class Tema extends HttpServlet {
         String view = "/WEB-INF/views/temasRecientes.jsp";
         String create = request.getParameter("a");
         if (create != null) {
+        	
+        	List<Categoria> categorias= DAOCategoria.getAllCategorias();
+        	
+        	request.setAttribute("categorias", categorias);
             //doPost(request, response);
             view = "/WEB-INF/views/addTema.jsp";
         } else {
@@ -53,12 +61,19 @@ public class Tema extends HttpServlet {
 
         String titulo = request.getParameter("titulo");
         String cuerpo = request.getParameter("cuerpo");
+        String[] categorias = request.getParameterValues("categorias");
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         com.makeit.model.POJO.Tema tema = new com.makeit.model.POJO.Tema(titulo, cuerpo, usuario);
         String msg = "Error al insertar el tema";
         try {
             DAOTema.insertTema(tema);
+            
+            /*com.makeit.model.POJO.Tema t = DAOTema.getLastInserted();
+            for(int i =0; i< categorias.length; i++){
+            	
+            }*/
+            
             msg = "Nuevo tema creado";
         } catch (Exception e) {
             System.out.println(msg + " " + e.getMessage());
