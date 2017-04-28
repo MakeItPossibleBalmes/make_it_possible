@@ -37,7 +37,7 @@ public class DataAccess<T> {
      * @throws HibernateException
      */
     protected static void finishTransaction() throws HibernateException {
-        getSesion().flush();
+        //getSesion().flush();
         getSesion().getTransaction().commit();
     }
 
