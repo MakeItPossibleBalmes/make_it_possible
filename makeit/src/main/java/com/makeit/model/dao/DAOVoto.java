@@ -17,17 +17,19 @@ import javax.persistence.EntityManager;
  *
  * @author razomiah
  */
-public class DAOVoto extends DataAccess {
+public class DAOVoto extends DataAccess<VotoTemaUsuario> {
 
-    public static void insertVoto(Usuario usuario, Tema tema) {
+    public static VotoTemaUsuario insertVoto(Usuario usuario, Tema tema) {
+    	
         VotoTemaUsuario voto = new VotoTemaUsuario();
         voto.setTema(tema);
         voto.setUsuario(usuario);
-        voto.setFecha_creacion(new Date());
-        startTransaction();
-        Usuario us = get(Usuario.class, voto.getUsuario().getId());
-        us.getVotos().add(voto);
-        finishTransaction();
+        
+        insert(voto);
+        
+        usuario.getVotos().add(voto);
+        
+        return voto;
     }
 
     public static void cancelarVoto(Usuario usuario, Tema tema) {
