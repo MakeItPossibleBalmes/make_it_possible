@@ -40,7 +40,7 @@ public class Home extends HttpServlet {
     	
     	//DAOCategoria daoc = new DAOCategoria();    	
     	
-    	//List<Tema> destacados = DAOTema.getDestacados(5);
+    	List<Tema> destacados = DAOTema.getDestacados(5);
     	//List<Tema> mejorValorados = DAOTema.getMejorValorados(5);
     	List<Categoria> categorias= DAOCategoria.getAllCategorias();
     	

@@ -19,6 +19,11 @@
             <div class="container" id="temas-categoria">
                 <h1>Temas Recientes</h1>
                 <p class="desc">Temas ordenados por la fecha en que fueron creados</p>
+                <c:if test='<%= request.getSession().getAttribute("msg") != null %>'>
+                	<script>
+                		alert("-------------------------------------------------\n<%= request.getSession().getAttribute("msg") %>\n\n");
+                	</script>
+                </c:if>
                 <br/>
                 <c:forEach var="tema" items="${recientes}">	
                 	<div class="bloque-tema-min panel panel-body panel-default col-sm-4 col-sm-offset-1" id="tema-${tema.id}">
@@ -30,7 +35,7 @@
 <%-- 					    		<p>${tema.votos.length() }</p> --%>
 					    	</div>
 					    	<div class="col-xs-4">
-					    		<a class="btn" href='#'><i class='glyphicon glyphicon-thumbs-up'></i>Votar</a>
+					    		<a class="btn" href='<%= request.getContextPath() %>/voto?up=${tema.id}'><i class='glyphicon glyphicon-thumbs-up'></i>Votar</a>
 					    	</div>
 					    </div>
 					</div>

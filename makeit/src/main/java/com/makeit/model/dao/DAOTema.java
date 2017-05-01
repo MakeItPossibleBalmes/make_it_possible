@@ -71,6 +71,7 @@ public class DAOTema extends DataAccess<Tema> {
 		tema = manager.find(Tema.class, id);
 		BD.tancarConnexio();
 		return tema;*/
+    	
         return get(Tema.class, id);
     }
 
@@ -100,47 +101,28 @@ public class DAOTema extends DataAccess<Tema> {
 
     /**
      * Consideramos destacados los temas com más de 5 votos y más recientes.
+     * El número de votos por el que filtramos se especifica en <limite>
      *
-     * @param total Total de temas a recibir
+     * @param total Temas que va a devolver
      * @return
      */
     public static List<Tema> getDestacados(int total) {
-        int limite = 5;
-        /*   EntityManager manager = BD.getConnexio();
-        List<Tema> temas = (List<Tema>) manager.createQuery("FROM Tema ORDER BY fecha_creacion DESC").getResultList();
-        //Que no haya OutOfBounds
+        final int limite = 0;  
+        
+        
+        List<Tema> temas = getAllTemas();        
         if (total > temas.size()) {
-            total = temas.size();
+        	total = temas.size();
         }
-         */
+        
         List<Tema> destacados = new ArrayList<Tema>();
-        /*  for (int i = 0; i < total; i++) {
+        for (int i = 0; i < total; i++) {
             Tema t = temas.get(i);
-            if (t.getVotos().size() > limite) {
+            if (t.getVotos().size() >= limite) {
                 destacados.add(t);
             }
         }
-        BD.tancarConnexio();*/
-        List<Tema> temas = new ArrayList<Tema>();
-        try {
-            startTransaction();
-            temas = (List<Tema>) getSesion().createQuery("FROM Tema ORDER BY fecha_creacion DESC").list();
-            finishTransaction();
-            if (total > temas.size()) {
-                total = temas.size();
-            }
-            for (int i = 0; i < total; i++) {
-                Tema t = temas.get(i);
-                if (t.getVotos().size() > limite) {
-                    destacados.add(t);
-                }
-            }
-
-        } catch (HibernateException he) {
-            manageException(he);
-        } finally {
-            getSesion().close();
-        }
+        
         return destacados;
     }
 
@@ -155,6 +137,7 @@ public class DAOTema extends DataAccess<Tema> {
         if (total > temas.size()) {
             total = temas.size();
         }
+        
         //TODO:Recoger el número de votos por cada tema. Ordenarlos de mayor a menor y devolver los temas. (Buscando por la key)
         //Set<Tema> mejorValorados = new D<Tema>();
         Map<Integer, Integer> datos = new HashMap<Integer, Integer>();
