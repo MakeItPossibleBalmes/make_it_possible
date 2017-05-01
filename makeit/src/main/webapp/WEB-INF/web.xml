@@ -46,7 +46,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Voto</servlet-name>
-        <url-pattern>/Voto</url-pattern>
+        <url-pattern>/voto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
