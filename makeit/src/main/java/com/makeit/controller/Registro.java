@@ -26,15 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 // @WebServlet("/registro")
 public class Registro extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Registro() {
-        // TODO Auto-generated constructor stub
-    }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,6 +37,7 @@ public class Registro extends HttpServlet {
      */
     protected void peticionRegistro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
     	boolean valido = false;
         ArrayList<String> datos = new ArrayList<String>();
         datos.add(request.getParameter("email"));
@@ -56,27 +48,32 @@ public class Registro extends HttpServlet {
         datos.add(request.getParameter("ciudad"));
         datos.add(request.getParameter("pais"));
         try {
+        	
             Comprobacio.comprobarDatosForumlario(datos);
             Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(3), datos.get(4), datos.get(5), datos.get(6));
-            DAOUsuario.insertUsuario(usuario);
+            
+            //Añadimos la id generada en la base de datos al objeto.
+            int id = DAOUsuario.insertUsuario(usuario);
+            usuario.setId(id);
             request.getSession().setAttribute("usuario", usuario);
             
             //<!> Con request Dispatches solo va a modificar la vista que aparece, nos interesa que haga una redirección teniendo ya el usuario logeado.
             //request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/");
             valido = true;
+            
         } catch (InvalidEmail e) {
-            request.setAttribute("error", "email invalido");
+            request.setAttribute("error", "Email inválido.");
             System.out.println("---------------------------------------invalidemail:"+e.getMessage());
         } catch (InvalidName e) {
                System.out.println("---------------------------------------invalid Name:"+e.getMessage());
-            request.setAttribute("error", "algunos campos de nombres invalidos");
+            request.setAttribute("error", "Algunos campos de nombres inválidos.");
         } catch (PasswordException e) {
                System.out.println("---------------------------------------passwordexpt:"+e.getMessage());
-            request.setAttribute("error", "contraseña invalida");
+            request.setAttribute("error", "Las contraseñas no coinciden o son demasiado cortas.");
         } catch (Exception e) {
                System.out.println("---------------------------------------excepcionerror:"+e.getMessage());
-            request.setAttribute("error", "error extraño, contacte con el admin");
+            request.setAttribute("error", "Error inesperado, contacte con el administrador.");
         } finally {
             request.setAttribute("datos", datos);
             if(!valido){

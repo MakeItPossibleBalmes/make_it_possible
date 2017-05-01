@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Servlet controlador de tema
  * @author hartbold <ardevolp at gmail dot com>
  */
 public class Tema extends HttpServlet {
@@ -29,6 +29,8 @@ public class Tema extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     * 
+     * Mostrará el form de inserción o bien la lista de temas dependiendo de si le llega el parámetro "a" (action) en la petición
      *
      * @param request servlet request
      * @param response servlet response
@@ -40,7 +42,9 @@ public class Tema extends HttpServlet {
 
         String view = "/WEB-INF/views/temasRecientes.jsp";
         String create = request.getParameter("a");
-        if (create != null) {
+        String err = (String) request.getAttribute("err");
+        
+        if (create != null || err != null) {
         	
         	List<Categoria> categorias= DAOCategoria.getAllCategorias();
         	
@@ -56,6 +60,13 @@ public class Tema extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Crea un tema recogiendo los parámetros que llegan desde el formulario por POST
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void createTema(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -65,23 +76,19 @@ public class Tema extends HttpServlet {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         com.makeit.model.POJO.Tema tema = new com.makeit.model.POJO.Tema(titulo, cuerpo, usuario);
-        String msg = "Error al insertar el tema";
         try {
-            DAOTema.insertTema(tema);
             
-            /*com.makeit.model.POJO.Tema t = DAOTema.getLastInserted();
-            for(int i =0; i< categorias.length; i++){
-            	
+        	int id = DAOTema.insertTema(tema);
+            
+            /*for(int i =0; i< categorias.length; i++){
+            	insert en la tabla relacional
             }*/
-            
-            msg = "Nuevo tema creado";
+        	
+            response.sendRedirect(request.getContextPath()+"/tema");
         } catch (Exception e) {
-            System.out.println(msg + " " + e.getMessage());
+        	request.setAttribute("err", "Error insertando el tema.");
+            doGet(request,response);
         }
-
-        request.setAttribute("msg",msg);
-        response.sendRedirect(request.getContextPath()+"/tema");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -101,6 +108,7 @@ public class Tema extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
+     * Llamará al método de crear un tema.
      *
      * @param request servlet request
      * @param response servlet response

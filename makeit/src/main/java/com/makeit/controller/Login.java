@@ -29,13 +29,12 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * Controlará la acción de Login. 
+     * Recoge el email y la contraseña y establece el usuario que encuentre por las mismas credenciales en una variable de sesión.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
      */
     protected void procesarLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,10 +64,8 @@ public class Login extends HttpServlet {
             request.setAttribute("email", email);
             if(!valido){
             	doGet(request, response);
-            }
-            
+            }            
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

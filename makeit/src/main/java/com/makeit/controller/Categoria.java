@@ -52,12 +52,20 @@ public class Categoria extends HttpServlet {
     	
     }
     
+    /**
+     * Añade una nueva categoría a la base de datos.
+     * @param request
+     * @param response
+     * @param nombre Nombre de la categoria
+     * @throws ServletException
+     * @throws IOException
+     */
     private void addCategoria(HttpServletRequest request, HttpServletResponse response, String nombre)
             throws ServletException, IOException {
     	
-    	boolean resultado = DAOCategoria.insertCategoria(new com.makeit.model.POJO.Categoria(nombre)); //false;//
+    	Long resultado = DAOCategoria.insertCategoria(new com.makeit.model.POJO.Categoria(nombre)); //false;//
     	
-    	if(!resultado){
+    	if(resultado <= 0){
     		request.setAttribute("error", true);
     	}
     	
@@ -66,6 +74,14 @@ public class Categoria extends HttpServlet {
         dispatcher.forward(request, response);*/
     }
     
+    /**
+     * Elimina una categoria de la base de datos dada la ID
+     * @param request
+     * @param response
+     * @param id
+     * @throws ServletException
+     * @throws IOException
+     */
     private void deleteCategoria(HttpServletRequest request,HttpServletResponse response, int id)
             throws ServletException, IOException {
     	
