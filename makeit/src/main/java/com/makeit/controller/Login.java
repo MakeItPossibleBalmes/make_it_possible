@@ -45,22 +45,30 @@ public class Login extends HttpServlet {
             String psw = request.getParameter("password");
             if (Comprobacio.isValidEmailAddress(email) && Comprobacio.isValidPassword(psw, psw)) {
                 Usuario usuario = DAOUsuario.getUsuario(email);
+                
                 if (usuario.getPassword().equals(Crypt.encripta(psw))) {
                     request.getSession().setAttribute("usuario", usuario);
                     response.sendRedirect(request.getContextPath() + "/");
                     valido = true;
                 }else{
-                    request.setAttribute("error", "datos contraseña incorrecta");
+                    //request.setAttribute("error", "datos contraseña incorrecta");
+                	request.setAttribute("error", "Los datos no son correctos");
+                	System.out.println("Contraseña incorrecta");
                     //doGet(request, response);
                 }
             }
+           
+        //EN LOS LOGINS NO SE DA INFORMACIÓN DE QUÉ PETA
         } catch (InvalidEmail e) {
-            request.setAttribute("error", "email invalido"+e.getMessage());
+        	System.out.println("Email inválido");
+            //request.setAttribute("error", "email invalido"+e.getMessage());
         } catch (PasswordException e) {
-            request.setAttribute("error", "contraseña invalida"+e.getMessage());
+        	System.out.println("Contraseña inválida");
+            //request.setAttribute("error", "contraseña invalida"+e.getMessage());
         } catch (Exception e) {
-            request.setAttribute("error", "error extraño, contacte con el admin"+e.getMessage());
+            request.setAttribute("error", "Los datos no son correctos");
         } finally {
+        	
             request.setAttribute("email", email);
             if(!valido){
             	doGet(request, response);
