@@ -34,7 +34,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
      * @param usuario
      * @throws Exception
      */
-    public static void insertUsuario(Usuario usuario){
+    public static int insertUsuario(Usuario usuario){
         /*usuario.setPassword(Crypt.encripta(usuario.getPassword()));
 		EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
@@ -44,7 +44,7 @@ public class DAOUsuario extends DataAccess<Usuario> {
     	
     	//Pablo - Guardamos contraseña encriptada.
     	usuario.setPassword(Crypt.encripta(usuario.getPassword()));
-        insert(usuario);                    
+        return insert(usuario);                    
     }
 
     /**

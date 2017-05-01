@@ -33,13 +33,14 @@ public class DAOTema extends DataAccess<Tema> {
      * @param tema
      * @throws Exception
      */
-    public static void insertTema(Tema tema){
+    public static int insertTema(Tema tema){
         /*EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(tema);
 		manager.getTransaction().commit();
 		BD.tancarConnexio();*/
-        insert(tema);
+    	
+        return insert(tema);
     }
     
     public static Tema getLastInserted(){

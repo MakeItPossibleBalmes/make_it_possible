@@ -25,7 +25,7 @@ public class DAOCategoria extends DataAccess<Categoria> {
 	 * @return Id de la categoría insertada
 	 * @throws HibernateException
 	 */
-	public static boolean insertCategoria(Categoria categoria) throws HibernateException {
+	public static int insertCategoria(Categoria categoria) throws HibernateException {
 		/*
 		 * EntityManager manager = BD.getConnexio();
 		 * manager.getTransaction().begin(); manager.persist(categoria);
