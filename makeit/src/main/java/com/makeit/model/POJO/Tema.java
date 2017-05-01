@@ -50,7 +50,7 @@ public class Tema implements Serializable{
     private Date fecha_creacion;
 	
 	//TODO: Quizá hay que cambiarlo a EAGER para que no haya conflicto al haber cerrado la sesion de Hibernate y tal.
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
@@ -90,10 +90,8 @@ public class Tema implements Serializable{
 	 * @param usuario
 	 */
 	public Tema(String titulo, String cuerpo, Usuario usuario) {
-		this.id = id;
 		this.titulo = titulo;
 		this.cuerpo = cuerpo;
-		this.fecha_creacion = fecha_creacion;
 		this.usuario = usuario;
 	}
 
