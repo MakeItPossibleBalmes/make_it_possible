@@ -9,7 +9,7 @@ import com.makeit.model.POJO.Tema;
 import java.util.Comparator;
 
 /**
- *
+ * Clase comparable que se implementará en un treeset para que los temas salgan ordenados por fecha.
  * @author hartbold <ardevolp at gmail dot com>
  */
 public class TemaFecha implements Comparator{
@@ -23,6 +23,6 @@ public class TemaFecha implements Comparator{
         if(cont == 0){
             cont = t1.getTitulo().compareTo(t2.getTitulo());
         }
-        return cont;
+        return -cont;
     }
 }
