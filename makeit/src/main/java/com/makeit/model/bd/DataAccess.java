@@ -59,14 +59,14 @@ public class DataAccess<T> {
      * @return Resultado de la operación.
      * @throws HibernateException
      */
-    protected static <T> Boolean insert(T data) throws HibernateException {
+    protected static <T> int insert(T data) throws HibernateException {
 
-        Boolean done = false;
+        int done = 0;
 
         try {
             startTransaction();
-            getSesion().saveOrUpdate(data);
-            done = true;
+            done = (int) getSesion().save(data);
+            //getSesion().flush();
             finishTransaction();
         } catch (HibernateException e) {
             manageException(e);
