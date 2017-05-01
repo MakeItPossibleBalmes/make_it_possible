@@ -63,7 +63,7 @@ public class Categoria extends HttpServlet {
     private void addCategoria(HttpServletRequest request, HttpServletResponse response, String nombre)
             throws ServletException, IOException {
     	
-    	Long resultado = DAOCategoria.insertCategoria(new com.makeit.model.POJO.Categoria(nombre)); //false;//
+    	int resultado = DAOCategoria.insertCategoria(new com.makeit.model.POJO.Categoria(nombre)); //false;//
     	
     	if(resultado <= 0){
     		request.setAttribute("error", true);
