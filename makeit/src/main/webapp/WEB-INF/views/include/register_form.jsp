@@ -1,5 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <form id='form-registro' action="<%= request.getContextPath()%>/registro" method="POST" class="form-horizontal centrado"
       role="form">
+      
+    <c:if test="${error != null}">
+        <div class="alert alert-danger">
+            <p><%= request.getAttribute("error") %></p>
+        </div>
+    </c:if>
+      
     <div class="form-group">
         <label for="email" class="col-sm-3 control-label">Email*</label>
         <div class="col-sm-9">
@@ -12,7 +21,7 @@
     </div>
 
     <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">Contraseña*</label>
+        <label for="password" class="col-sm-3 control-label">Contraseña* (min. 8 carácteres)</label>
         <div class="col-sm-9">
             <div class="input-group">
                 <span class="input-group-addon"><i

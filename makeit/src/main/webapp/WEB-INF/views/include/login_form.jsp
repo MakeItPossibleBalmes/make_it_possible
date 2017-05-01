@@ -1,5 +1,18 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <form action="<%= request.getContextPath() %>/login" method="POST" class="form-horizontal centrado"
 	role="form">
+	<div class="form-group">
+		<label for="email" class="cols-sm-2 control-label">Email</label>
+		<div class="cols-sm-10">
+			<div class="input-group">
+				<span class="input-group-addon"><i
+					class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span> <input
+					type="text" class="form-control" name="email" id="email"
+					pattern="^([a-z0-9\_\-\.]+[@]{1}[a-z0-9\.\-]+[\.][a-z\.]{2,6})$" required />
+			</div>
+		</div>
+	</div>
+	
 	<div class="form-group">
 		<label for="email" class="cols-sm-2 control-label">Email</label>
 		<div class="cols-sm-10">
