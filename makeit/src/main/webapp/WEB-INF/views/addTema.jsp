@@ -15,15 +15,16 @@
         <jsp:include page="include/styles.jsp"></jsp:include>
         </head>
         <body>
-        <jsp:include page="include/head.jsp"></jsp:include>
+        	<jsp:include page="include/head.jsp"></jsp:include>
 
             <div class="container" id="categoria">
                 <h1>Crea un nuevo Tema</h1>
+                
                 <jsp:include page="include/tema_form.jsp"></jsp:include>
             </div>
 
-        <jsp:include page="include/foot.jsp"></jsp:include>
-
-        <jsp:include page="include/scripts.jsp"></jsp:include>
+	        <jsp:include page="include/foot.jsp"></jsp:include>
+	
+	        <jsp:include page="include/scripts.jsp"></jsp:include>
     </body>    
 </html>
