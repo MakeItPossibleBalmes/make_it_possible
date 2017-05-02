@@ -54,7 +54,7 @@ public class Tema implements Serializable{
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "tema")
+	@OneToMany(mappedBy = "tema",fetch=FetchType.EAGER)
 	private Set<VotoTemaUsuario> votos=new HashSet<VotoTemaUsuario>();
 	
 
