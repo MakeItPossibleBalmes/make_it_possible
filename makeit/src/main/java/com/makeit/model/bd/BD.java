@@ -5,32 +5,40 @@
  */
 package com.makeit.model.bd;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
+ * Conexion a bd
  *
+ * @deprecated
  * @author razomiah
  */
 public class BD {
 
-	private static EntityManager manager;
-	private static EntityManagerFactory  mg = Persistence.createEntityManagerFactory("makeit");
+    private static EntityManager manager;
+    private static EntityManagerFactory mg = Persistence.createEntityManagerFactory("makeit");
 
-    
-    public static EntityManager getConnexio(){
+    /**
+     * Get the connection of db
+     *
+     * @return
+     */
+    public static EntityManager getConnexio() {
         if (manager == null) {
-        	manager = mg.createEntityManager();
+            manager = mg.createEntityManager();
         }
         return manager;
     }
 
+    /**
+     * Close db connection
+     */
     public static void tancarConnexio() {
-    	if(manager!=null){
-    		manager.close();
-    	}
+        if (manager != null) {
+            manager.close();
+        }
     }
 
 }

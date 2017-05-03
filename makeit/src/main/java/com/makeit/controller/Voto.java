@@ -27,8 +27,8 @@ public class Voto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Realizará la acción de voto.
-     * 
+     * methods.
+     * Realizará la acción de voto.
      * 
      * @param request servlet request
      * @param response servlet response
@@ -38,8 +38,9 @@ public class Voto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-        
+        //creamos el objeto usuario de la sesion
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+                //recogida de parametros 
         String up = request.getParameter("up");
         String down = request.getParameter("down");
         
@@ -48,10 +49,10 @@ public class Voto extends HttpServlet {
         	request.getSession().setAttribute("msg", "Necesitas estar registrado para poder votar.");
         } else {
         	try{
-            	if(up != null){
+            	if(up != null){//si el usuario vota (Like)
                 	Tema tema = DAOTema.getTema(Integer.parseInt(up));
                 	DAOVoto.insertVoto(usuario, tema);
-                } else {
+                } else { //si el usuario desvota (unLike)
                 	Tema tema = DAOTema.getTema(Integer.parseInt(down));
                 	DAOVoto.cancelarVoto(usuario, tema);
                 }

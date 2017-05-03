@@ -11,70 +11,105 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="voto")
-public class VotoTemaUsuario implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Table(name = "voto")
+public class VotoTemaUsuario implements Serializable {
 
-	@Id
-	@Column(name="id",nullable=false,length=11)
-	private int id;
-	
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
-	
-	@ManyToOne
-	@JoinColumn(name = "tema_id")
-	private Tema tema;
-	
-	@Column(name="fecha_creacion")
-	private Date fecha_creacion;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public VotoTemaUsuario() {
-		
-	}
+    @Id
+    @Column(name = "id", nullable = false, length = 11)
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "tema_id")
+    private Tema tema;
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    @Column(name = "fecha_creacion")
+    private Date fecha_creacion;
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    /**
+     * Constructor por defecto de Voto Tema Usuario
+     */
+    public VotoTemaUsuario() {
 
-	public Tema getTema() {
-		return tema;
-	}
+    }
 
-	public void setTema(Tema tema) {
-		this.tema = tema;
-	}
+    /**
+     * Get id
+     *
+     * @return
+     */
+    public int getId() {
+        return id;
+    }
 
-	public Date getFecha_creacion() {
-		return fecha_creacion;
-	}
+    /**
+     * Set id
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
-	}
+    /**
+     * Get Usuario
+     *
+     * @return
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	@Override
-	public String toString() {
-		return "VotoTemaUsuario [id=" + id  + " fecha_creacion="
-				+ fecha_creacion + "]";
-	}
-	
+    /**
+     * set Usuario
+     *
+     * @param usuario
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
+    /**
+     * Get Tema
+     *
+     * @return
+     */
+    public Tema getTema() {
+        return tema;
+    }
+
+    /**
+     * Set Tema
+     *
+     * @param tema
+     */
+    public void setTema(Tema tema) {
+        this.tema = tema;
+    }
+
+    /**
+     * Get Fecha Creacion
+     *
+     * @return
+     */
+    public Date getFecha_creacion() {
+        return fecha_creacion;
+    }
+
+    /**
+     * Get Fecha Creacion
+     *
+     * @param fecha_creacion
+     */
+    public void setFecha_creacion(Date fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
+    }
 }

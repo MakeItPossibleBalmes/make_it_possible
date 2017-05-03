@@ -6,7 +6,7 @@
 package com.makeit.exceptions;
 
 /**
- *
+ *Clase Excepction para la validacion de Psw
  * @author razomiah
  */
 public class PasswordException extends Exception{

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class Registro
- *
+ *  Servlet implementado para el control de registro del usuario
  * @author hartbold <ardevolp at gmail dot com>
  */
 // @WebServlet("/registro")
@@ -38,6 +38,7 @@ public class Registro extends HttpServlet {
     protected void peticionRegistro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
+        //recogida de datos del formulario registro en un ArrayList
     	boolean valido = false;
         ArrayList<String> datos = new ArrayList<String>();
         datos.add(request.getParameter("email"));
@@ -47,34 +48,36 @@ public class Registro extends HttpServlet {
         datos.add(request.getParameter("primer_apellido"));
         datos.add(request.getParameter("ciudad"));
         datos.add(request.getParameter("pais"));
+        
+        
         try {
-        	
+        	//Validando datos
             Comprobacio.comprobarDatosForumlario(datos);
+            //generacion de un ususario con los datos validos
             Usuario usuario = new Usuario(datos.get(0), datos.get(1), datos.get(3), datos.get(4), datos.get(5), datos.get(6));
             
             //Añadimos la id generada en la base de datos al objeto.
             int id = DAOUsuario.insertUsuario(usuario);
             usuario.setId(id);
+            //iniciamos la session del usuario registrado
             request.getSession().setAttribute("usuario", usuario);
             
             //<!> Con request Dispatches solo va a modificar la vista que aparece, nos interesa que haga una redirección teniendo ya el usuario logeado.
             //request.getRequestDispatcher("index.jsp").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/");
             valido = true;
-            
+           
+            //control de excepciones
         } catch (InvalidEmail e) {
             request.setAttribute("error", "Email inválido.");
-            System.out.println("---------------------------------------invalidemail:"+e.getMessage());
         } catch (InvalidName e) {
-               System.out.println("---------------------------------------invalid Name:"+e.getMessage());
             request.setAttribute("error", "Algunos campos de nombres inválidos.");
         } catch (PasswordException e) {
-               System.out.println("---------------------------------------passwordexpt:"+e.getMessage());
             request.setAttribute("error", "Las contraseñas no coinciden o son demasiado cortas.");
         } catch (Exception e) {
-               System.out.println("---------------------------------------excepcionerror:"+e.getMessage());
             request.setAttribute("error", "Error inesperado, contacte con el administrador.");
         } finally {
+            //en el caso de error, devolvemos los datos introducidos por el usuario
             request.setAttribute("datos", datos);
             if(!valido){
             	//El valido controla que no esté instanciada la redirecció. Si se envia la redirección al dispatcher petará muy duro.
@@ -92,6 +95,7 @@ public class Registro extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // processRequest(request, response);
+        //en una peticion get devolvemos el formulario registro
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/register.jsp");
         dispatcher.forward(request, response);
     }
@@ -102,6 +106,7 @@ public class Registro extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //en una peticion post se registra al usuario
         peticionRegistro(request, response);
     }
 

@@ -41,17 +41,21 @@ public class Tema extends HttpServlet {
             throws ServletException, IOException {
 
         String view = "/WEB-INF/views/temasRecientes.jsp";
+        
+        //recogida de parametros
         String create = request.getParameter("a");
         String err = (String) request.getAttribute("err");
         
+        //si algun parametro no es null
         if (create != null || err != null) {
-        	
+        	//recogida de todalas las categorias
         	List<Categoria> categorias= DAOCategoria.getAllCategorias();
-        	
+                //lo guardamos en el objeto request
         	request.setAttribute("categorias", categorias);
             //doPost(request, response);
             view = "/WEB-INF/views/addTema.jsp";
-        } else {
+        } else {//en el caso de que los parametros recibidos sean null
+            //recogemos los temas recientes y los devolvemos a la vista
         	TreeSet<com.makeit.model.POJO.Tema> recientes = DAOTema.getRecientes();
             request.setAttribute("recientes", recientes);
         }        
@@ -69,23 +73,26 @@ public class Tema extends HttpServlet {
      */
     protected void createTema(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        //recogida de los datos del formulario de Añadir temas
         String titulo = request.getParameter("titulo");
         String cuerpo = request.getParameter("cuerpo");
         String[] categorias = request.getParameterValues("categorias");
+        //recogemos al usuario de la sesion
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-
+        //creamos un nuevo tema con los datos recibidos
         com.makeit.model.POJO.Tema tema = new com.makeit.model.POJO.Tema(titulo, cuerpo, usuario);
         try {
-            
+                //insetando el tema
         	int id = DAOTema.insertTema(tema);
             
             /*for(int i =0; i< categorias.length; i++){
             	insert en la tabla relacional
             }*/
-        	
+        	//redireccion a /tema 
             response.sendRedirect(request.getContextPath()+"/tema");
         } catch (Exception e) {
+            //en caso de error al insertar se le devuelve al usuario un msg de error
         	request.setAttribute("err", "Error insertando el tema.");
             doGet(request,response);
         }
@@ -118,7 +125,7 @@ public class Tema extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        createTema(request, response);
+        createTema(request, response);//creacion de tema en una peticions post
     }
 
     /**

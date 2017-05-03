@@ -22,65 +22,95 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
- *
+ * Clase POJO de Categoria
  * @author razomiah
  */
 @Entity
-@Table(name="categorias")
-public class Categoria implements Serializable{
-    
+@Table(name = "categorias")
+public class Categoria implements Serializable {
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	//@Column(name="id",nullable=false,length=11)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@Column(name="nombre",nullable=false)
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    //@Column(name="id",nullable=false,length=11)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-	
-	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "tema_categoria", joinColumns = { @JoinColumn(name = "categoria_id") }, inverseJoinColumns = { @JoinColumn(name = "tema_id") })
-	private Set<Tema> temas = new HashSet<Tema>();
     
-    public Categoria(){
-        
+    //many to many connection 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "tema_categoria", joinColumns = {
+        @JoinColumn(name = "categoria_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "tema_id")})
+    private Set<Tema> temas = new HashSet<Tema>();
+    /**
+     * Constructor por defecto de Categoria
+     */
+    public Categoria() {
+
     }
-    
+    /**
+     * Constructor con parametro id,nombre de Categoria
+     * @param id int id de Categoria
+     * @param nombre String nombre de Categoria
+     */
     public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
-    
-    public Categoria(String nombre){
-    	this.nombre = nombre;
+    /**
+     *  Constructor con parametro nombre de Categoria
+     * @param nombre String nombre 
+     */
+    public Categoria(String nombre) {
+        this.nombre = nombre;
     }
-
+    /**
+     * Getter id
+     * @return 
+     */
     public int getId() {
         return id;
     }
-
+    /**
+     * Setter id
+     * @param id 
+     */
     public void setId(int id) {
         this.id = id;
     }
-
+    /**
+     * Getter nombre
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
-
+    /**
+     * setter nombre
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+    /**
+     * Getter Temas relacionados a Categoria
+     * @return 
+     */
     public Set<Tema> getTemas() {
         return temas;
     }
-
+    /**
+     * Set tems relacionados a Categoria
+     * @param temas 
+     */
     public void setTemas(Set<Tema> temas) {
         this.temas = temas;
     }
-    
+
 }

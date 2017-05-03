@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import org.hibernate.HibernateException;
 
 /**
+ * Data access object for Tema
  *
  * @author razomiah
  */
@@ -33,19 +34,24 @@ public class DAOTema extends DataAccess<Tema> {
      * @param tema
      * @throws Exception
      */
-    public static int insertTema(Tema tema){
+    public static int insertTema(Tema tema) {
         /*EntityManager manager = BD.getConnexio();
 		manager.getTransaction().begin();
 		manager.persist(tema);
 		manager.getTransaction().commit();
 		BD.tancarConnexio();*/
-    	
+
         return insert(tema);
     }
-    
-    public static Tema getLastInserted(){
-    	int lastId = -1; 
-    	try {
+
+    /**
+     * Get las insseted Tema iserted in db
+     *
+     * @return
+     */
+    public static Tema getLastInserted() {
+        int lastId = -1;
+        try {
             startTransaction();
             lastId = (int) getSesion().createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult();
             finishTransaction();
@@ -54,8 +60,8 @@ public class DAOTema extends DataAccess<Tema> {
         } finally {
             getSesion().close();
         }
-    	
-    	return getTema(lastId);
+
+        return getTema(lastId);
     }
 
     /**
@@ -71,7 +77,7 @@ public class DAOTema extends DataAccess<Tema> {
 		tema = manager.find(Tema.class, id);
 		BD.tancarConnexio();
 		return tema;*/
-    	
+
         return get(Tema.class, id);
     }
 
@@ -100,21 +106,20 @@ public class DAOTema extends DataAccess<Tema> {
     }
 
     /**
-     * Consideramos destacados los temas com más de 5 votos y más recientes.
-     * El número de votos por el que filtramos se especifica en <limite>
+     * Consideramos destacados los temas com más de 5 votos y más recientes. El
+     * número de votos por el que filtramos se especifica en <limite>
      *
      * @param total Temas que va a devolver
      * @return
      */
     public static List<Tema> getDestacados(int total) {
-        final int limite = 0;  
-        
-        
-        List<Tema> temas = getAllTemas();        
+        final int limite = 0;
+
+        List<Tema> temas = getAllTemas();
         if (total > temas.size()) {
-        	total = temas.size();
+            total = temas.size();
         }
-        
+
         List<Tema> destacados = new ArrayList<Tema>();
         for (int i = 0; i < total; i++) {
             Tema t = temas.get(i);
@@ -122,7 +127,7 @@ public class DAOTema extends DataAccess<Tema> {
                 destacados.add(t);
             }
         }
-        
+
         return destacados;
     }
 
@@ -137,7 +142,7 @@ public class DAOTema extends DataAccess<Tema> {
         if (total > temas.size()) {
             total = temas.size();
         }
-        
+
         //TODO:Recoger el número de votos por cada tema. Ordenarlos de mayor a menor y devolver los temas. (Buscando por la key)
         //Set<Tema> mejorValorados = new D<Tema>();
         Map<Integer, Integer> datos = new HashMap<Integer, Integer>();
@@ -149,6 +154,11 @@ public class DAOTema extends DataAccess<Tema> {
 
     }
 
+    /**
+     * Get Temas ordenados por fecha
+     *
+     * @return
+     */
     public static TreeSet<Tema> getRecientes() {
         //Utilizamos el comparator para establecer el orden.
         TreeSet<Tema> temas = new TreeSet<Tema>(new TemaFecha());

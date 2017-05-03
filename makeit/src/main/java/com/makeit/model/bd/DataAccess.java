@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import com.makeit.model.bd.HibernateUtil;
 
 /**
+ * Clase generica para el CRUD a la db
  *
  * @author hartbold <ardevolp at gmail dot com>
  */
@@ -15,15 +16,26 @@ public class DataAccess<T> {
 
     private static Session sesion;
 
+    /**
+     * Get hibernate Session
+     *
+     * @return
+     */
     public static Session getSesion() {
         return sesion;
     }
 
+    /**
+     * Set hibernate Session
+     *
+     * @param ss
+     */
     public static void setSesion(Session ss) {
         sesion = ss;
     }
 
     /**
+     * Start the transaction
      *
      * @throws HibernateException
      */
@@ -33,6 +45,7 @@ public class DataAccess<T> {
     }
 
     /**
+     * Finish the transaction
      *
      * @throws HibernateException
      */
@@ -54,6 +67,7 @@ public class DataAccess<T> {
     }
 
     /**
+     * Insert an object in db
      *
      * @param data Objeto a persistir.
      * @return Resultado de la operación.
@@ -78,6 +92,7 @@ public class DataAccess<T> {
     }
 
     /**
+     * Delete an object in db
      *
      * @param primary Atributo de la base de datos que es la Pimary Key
      * @param value Id de la entidad a eliminar
@@ -156,6 +171,7 @@ public class DataAccess<T> {
     }
 
     /**
+     * Get an object from the db
      *
      * @param entity Clase de la entidad a encontrar
      * @param id Valor de la clave primaria.

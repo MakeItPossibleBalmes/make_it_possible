@@ -41,34 +41,39 @@ public class Login extends HttpServlet {
         String email = "";
         boolean valido = false;
         try {
-            email = request.getParameter("email");
-            String psw = request.getParameter("password");
+            email = request.getParameter("email");//recogemos email
+            String psw = request.getParameter("password");//recogemos password
+            
+            //validacion de email y psw
             if (Comprobacio.isValidEmailAddress(email) && Comprobacio.isValidPassword(psw, psw)) {
-                Usuario usuario = DAOUsuario.getUsuario(email);
                 
+                Usuario usuario = DAOUsuario.getUsuario(email);//buscamos usuario con el email
+                
+                //si el psw del usuario coincide con la que ha introducido, se
+                //creará una sesion para el usuario. y luego se le redirecciona a index
                 if (usuario.getPassword().equals(Crypt.encripta(psw))) {
                     request.getSession().setAttribute("usuario", usuario);
                     response.sendRedirect(request.getContextPath() + "/");
                     valido = true;
-                }else{
+                }else{//si los datos introducidos no coinciden con registros de bd 
+                    //se le mostrara un mensaje de error en la pagina de login
                     //request.setAttribute("error", "datos contraseña incorrecta");
                 	request.setAttribute("error", "Los datos no son correctos");
                 	System.out.println("Contraseña incorrecta");
                     //doGet(request, response);
                 }
             }
-           
-        //EN LOS LOGINS NO SE DA INFORMACIÓN DE QUÉ PETA
-        } catch (InvalidEmail e) {
+        } catch (InvalidEmail e) {//recogida de excepcion de email
         	System.out.println("Email inválido");
             //request.setAttribute("error", "email invalido"+e.getMessage());
-        } catch (PasswordException e) {
+        } catch (PasswordException e) {//recogida de excepcion de psw
         	System.out.println("Contraseña inválida");
             //request.setAttribute("error", "contraseña invalida"+e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e) {//excepcion general
             request.setAttribute("error", "Los datos no son correctos");
         } finally {
-        	
+        	//finalmente al saltar algun error a la hora de login, devolvemos
+                //al usuario a la pagina de login junto a su email
             request.setAttribute("email", email);
             if(!valido){
             	doGet(request, response);
@@ -89,11 +94,13 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
+        //para desloguear al usuario hacemos una peticion get y aquí en este
+        //metodo quitamos la sesion del usuario. A continuacion le devolvemos a la pagina de login
     	String action = request.getParameter("a");
     	if(action != null){
     		request.getSession().removeAttribute("usuario");
     		response.sendRedirect(request.getContextPath()+"/login");
-    	}else {
+    	}else {//si la accion es cualquier otra, devolvemos al usuario a la pagina de login
     		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
             dispatcher.forward(request, response);
     	}
@@ -113,7 +120,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        procesarLogin(request, response);
+        procesarLogin(request, response);//login de usuario
     }
 
     /**

@@ -23,7 +23,7 @@ import com.makeit.model.util.Crypt;
 import org.hibernate.HibernateException;
 
 /**
- *
+ * Data access object for Usuario
  * @author razomiah
  */
 public class DAOUsuario extends DataAccess<Usuario> {
@@ -108,35 +108,4 @@ public class DAOUsuario extends DataAccess<Usuario> {
 
         return usuarios;
     }
-
-    /*
-	public static void main(String[] args) {
-		EntityManager manager = BD.getConnexio();
-		// Usuario usu=new
-		// Usuario("miahrazon@gmail.com","123456","Razon","Miah","Bangalore","India");
-		Usuario usu = manager.find(Usuario.class, 6);
-		// Tema tema=new Tema("Rajoy","PP corrupcion",new Date(),usu);
-		Tema tema = manager.find(Tema.class, 1);
-		VotoTemaUsuario voto = new VotoTemaUsuario();
-		voto.setUsuario(usu);
-		voto.setTema(tema);
-		voto.setFecha_creacion(new Date());
-		manager.getTransaction().begin();
-		// manager.persist(usu);
-		// manager.persist(tema);
-		// usu.getVotos().add(voto);
-
-		manager.getTransaction().commit();
-		/*
-		 * List<Usuario> u = (List<Usuario>)
-		 * manager.createQuery("FROM Usuario").getResultList(); for(Usuario use:
-		 * u){ System.out.println(use.getTemas());
-		 * System.out.println(use.getVotos());
-		 * 
-		 * }
-		 
-		System.out.println(usu.getVotos());
-		BD.tancarConnexio();
-		
-	}*/
 }
