@@ -21,7 +21,7 @@ import com.makeit.model.dao.DAOTema;
 import com.makeit.model.dao.DAOCategoria;
 
 /**
- *
+ * Implementacion de servlet para la página raíz del proyecto
  * @author hartbold <ardevolp at gmail dot com>
  */
 public class Home extends HttpServlet {
@@ -29,7 +29,7 @@ public class Home extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     *  
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -37,7 +37,8 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
+    	//Carga los items requeridos para la página principal
+        
     	//DAOCategoria daoc = new DAOCategoria();    	
     	
     	List<Tema> destacados = DAOTema.getDestacados(5);
