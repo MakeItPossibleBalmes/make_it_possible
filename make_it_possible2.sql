@@ -36,11 +36,7 @@ DROP TABLE IF EXISTS `make_it_possible`.`usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `make_it_possible`.`usuarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-<<<<<<< HEAD
   `dni` VARCHAR(50) NULL DEFAULT NULL,
-=======
-  `dni` VARCHAR(11) NULL DEFAULT NULL,
->>>>>>> b8b6c84056b8db818fbbdf01ca2ef6492754d0d6
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(64) NOT NULL,
   `nombre` VARCHAR(75) NOT NULL,
