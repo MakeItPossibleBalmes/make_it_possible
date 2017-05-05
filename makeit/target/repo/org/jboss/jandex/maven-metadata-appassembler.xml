@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.jboss</groupId>
+  <artifactId>jandex</artifactId>
+  <versioning>
+    <release>2.0.0.Final</release>
+    <versions>
+      <version>2.0.0.Final</version>
+    </versions>
+    <lastUpdated>20170504180618</lastUpdated>
+  </versioning>
+</metadata>
