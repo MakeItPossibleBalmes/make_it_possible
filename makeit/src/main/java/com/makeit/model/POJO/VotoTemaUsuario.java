@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+/**
+ * Clase Pojo de Voto
+ * @author razomiah
+ */
 @Entity
 @Table(name = "voto")
 public class VotoTemaUsuario implements Serializable {

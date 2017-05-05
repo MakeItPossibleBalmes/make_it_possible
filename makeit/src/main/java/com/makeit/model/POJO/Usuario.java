@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- *
+ *  Clase POJO de Usuario
  * @author razomiah
  */
 @Entity
