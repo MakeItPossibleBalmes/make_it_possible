@@ -2,10 +2,10 @@
 
 El proyecto consiste en crear un lugar(web) de acogida libre y pública de peticiones por internet de carácter cívico, reformista, social y en general reivindicativo del cumplimiento de los derechos humanos aunque en él tendrán cabida todo tipo de peticiones. El proyecto será una adaptación de [Change.org](https://www.change.org/es) 
 
-Proyecto de la clase de Armand y Montse, UF4 M08 y UF6 M03.
+<i>Proyecto de la clase de Armand y Montse, UF4 M08 y UF6 M03.</i>
 
 ## INSTALACIÓN
-Importar la base de datos con el script <code>sql</code>
+Importar la base de datos con el script make_it_possible.sql<br/>
 <code>mysql -u root -p make_it_possible < make_it_possible.sql</code>
 
 ### Esquema Entidad-Relación
